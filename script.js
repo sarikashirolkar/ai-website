@@ -250,6 +250,254 @@ if (quickForm) {
     });
 }
 
+// ===== WEBGL HERO MESH BACKGROUND =====
+function initHeroWebGLBackground() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'hero-webgl-canvas';
+    hero.prepend(canvas);
+
+    const gl = canvas.getContext('webgl', {
+        alpha: true,
+        antialias: true,
+        premultipliedAlpha: true,
+        powerPreference: 'high-performance'
+    });
+
+    if (!gl) {
+        canvas.remove();
+        return;
+    }
+
+    const vertexShaderSource = `
+        attribute vec2 a_position;
+        varying vec2 v_uv;
+        void main() {
+            v_uv = a_position * 0.5 + 0.5;
+            gl_Position = vec4(a_position, 0.0, 1.0);
+        }
+    `;
+
+    const fragmentShaderSource = `
+        precision highp float;
+
+        varying vec2 v_uv;
+        uniform vec2 u_resolution;
+        uniform float u_time;
+        uniform vec3 u_colorA;
+        uniform vec3 u_colorB;
+        uniform vec3 u_colorC;
+
+        float blob(vec2 p, vec2 center, vec2 size, float softness) {
+            vec2 q = (p - center) / size;
+            float d = dot(q, q);
+            return exp(-d * softness);
+        }
+
+        void main() {
+            vec2 uv = v_uv;
+            vec2 p = uv * 2.0 - 1.0;
+            p.x *= u_resolution.x / max(u_resolution.y, 1.0);
+
+            float t = u_time * 0.18;
+
+            vec2 f1 = p;
+            f1.x += 0.26 * sin(f1.y * 3.3 + t * 1.7);
+            f1.y += 0.08 * sin(f1.x * 2.4 - t * 1.1);
+
+            vec2 f2 = p;
+            f2.x += 0.18 * sin(f2.y * 2.0 - t * 1.3);
+            f2.y += 0.20 * sin(f2.x * 1.6 + t * 1.6);
+
+            float m1 = blob(f1, vec2(0.55, 0.62), vec2(1.35, 0.34), 3.8);
+            float m2 = blob(f2, vec2(0.58, 0.40), vec2(1.10, 0.52), 3.1);
+            float m3 = blob(f2, vec2(0.42, 0.78), vec2(1.65, 0.56), 3.4);
+
+            float blendA = smoothstep(0.14, 0.92, m1);
+            float blendB = smoothstep(0.08, 0.86, m2);
+            float blendC = smoothstep(0.06, 0.78, m3) * 0.86;
+
+            vec3 col = vec3(1.0);
+            col = mix(col, u_colorA, blendA * 0.78);
+            col = mix(col, u_colorB, blendB * 0.62);
+            col = mix(col, u_colorC, blendC * 0.48);
+
+            float haze = 0.045 * sin((uv.x + uv.y + t * 0.5) * 10.0);
+            col += haze;
+
+            float alpha = clamp(max(blendA, max(blendB * 0.9, blendC * 0.8)), 0.0, 1.0) * 0.84;
+            gl_FragColor = vec4(col, alpha);
+        }
+    `;
+
+    function compileShader(type, source) {
+        const shader = gl.createShader(type);
+        if (!shader) return null;
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            console.error('WebGL shader compile error:', gl.getShaderInfoLog(shader));
+            gl.deleteShader(shader);
+            return null;
+        }
+        return shader;
+    }
+
+    const vertexShader = compileShader(gl.VERTEX_SHADER, vertexShaderSource);
+    const fragmentShader = compileShader(gl.FRAGMENT_SHADER, fragmentShaderSource);
+    if (!vertexShader || !fragmentShader) {
+        canvas.remove();
+        return;
+    }
+
+    const program = gl.createProgram();
+    if (!program) {
+        canvas.remove();
+        return;
+    }
+
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error('WebGL program link error:', gl.getProgramInfoLog(program));
+        canvas.remove();
+        return;
+    }
+    gl.useProgram(program);
+    hero.classList.add('hero-webgl-enabled');
+
+    const vertices = new Float32Array([
+        -1, -1,
+         1, -1,
+        -1,  1,
+        -1,  1,
+         1, -1,
+         1,  1
+    ]);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    const positionLocation = gl.getAttribLocation(program, 'a_position');
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+    const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
+    const timeLocation = gl.getUniformLocation(program, 'u_time');
+    const colorALocation = gl.getUniformLocation(program, 'u_colorA');
+    const colorBLocation = gl.getUniformLocation(program, 'u_colorB');
+    const colorCLocation = gl.getUniformLocation(program, 'u_colorC');
+
+    const palettes = {
+        'theme-purple-pink': [
+            [0.36, 0.31, 0.98],
+            [0.58, 0.50, 1.00],
+            [0.77, 0.90, 1.00]
+        ],
+        'theme-pink-blue': [
+            [0.31, 0.62, 1.00],
+            [0.49, 0.80, 1.00],
+            [0.70, 0.92, 1.00]
+        ],
+        'theme-green-yellow': [
+            [0.38, 0.73, 0.67],
+            [0.60, 0.86, 0.73],
+            [0.93, 0.93, 0.69]
+        ],
+        default: [
+            [0.36, 0.31, 0.98],
+            [0.58, 0.50, 1.00],
+            [0.77, 0.90, 1.00]
+        ]
+    };
+
+    function getActivePalette() {
+        for (const key of Object.keys(palettes)) {
+            if (key !== 'default' && document.body.classList.contains(key)) {
+                return palettes[key];
+            }
+        }
+        return palettes.default;
+    }
+
+    function applyPalette() {
+        const palette = getActivePalette();
+        gl.uniform3f(colorALocation, palette[0][0], palette[0][1], palette[0][2]);
+        gl.uniform3f(colorBLocation, palette[1][0], palette[1][1], palette[1][2]);
+        gl.uniform3f(colorCLocation, palette[2][0], palette[2][1], palette[2][2]);
+    }
+
+    const classObserver = new MutationObserver(applyPalette);
+    classObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    applyPalette();
+
+    let running = true;
+    let inView = true;
+    let rafId = 0;
+    let lastFrame = 0;
+    const targetFrameMs = 1000 / 45;
+
+    function resize() {
+        const rect = hero.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+        const width = Math.max(1, Math.round(rect.width * dpr));
+        const height = Math.max(1, Math.round(rect.height * dpr));
+
+        if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+            gl.viewport(0, 0, width, height);
+        }
+
+        gl.uniform2f(resolutionLocation, width, height);
+    }
+
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(hero);
+    window.addEventListener('resize', resize);
+    resize();
+
+    const visibilityObserver = new IntersectionObserver(
+        (entries) => {
+            inView = entries.some((entry) => entry.isIntersecting);
+        },
+        { threshold: 0.01 }
+    );
+    visibilityObserver.observe(hero);
+
+    document.addEventListener('visibilitychange', () => {
+        running = document.visibilityState === 'visible';
+    });
+
+    function render(now) {
+        rafId = requestAnimationFrame(render);
+        if (!running || !inView) return;
+        if (now - lastFrame < targetFrameMs) return;
+        lastFrame = now;
+
+        gl.clearColor(0, 0, 0, 0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniform1f(timeLocation, now * 0.001);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+    }
+
+    rafId = requestAnimationFrame(render);
+
+    window.addEventListener('beforeunload', () => {
+        cancelAnimationFrame(rafId);
+        classObserver.disconnect();
+        resizeObserver.disconnect();
+        visibilityObserver.disconnect();
+    });
+}
+
 // ===== SCROLL ANIMATIONS =====
 const observerOptions = {
     threshold: 0.1,
@@ -267,6 +515,8 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
+    initHeroWebGLBackground();
+
     const animatedElements = document.querySelectorAll(
         '.process-card, .service-card, .benefit-card, .pricing-card, .faq-item'
     );

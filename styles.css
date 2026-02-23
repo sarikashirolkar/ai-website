@@ -412,6 +412,27 @@ body.motion-ready .section-reveal.is-visible {
     isolation: isolate;
 }
 
+.hero-webgl-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero.hero-webgl-enabled .blob-wrap {
+    opacity: 0;
+}
+
+.hero.hero-webgl-enabled::before {
+    opacity: 0.35;
+}
+
+.hero.hero-webgl-enabled::after {
+    opacity: 0.45;
+}
+
 /* Hero background — abstract wave + retro gradient mesh */
 .hero::before {
     content: '';
@@ -1769,6 +1790,10 @@ body.theme-green-yellow .hero .blob-1 {
 
     .hero .blob {
         animation: none !important;
+    }
+
+    .hero-webgl-canvas {
+        display: none !important;
     }
 }
 
