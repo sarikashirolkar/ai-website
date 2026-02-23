@@ -180,3 +180,18 @@ For questions or issues, please open an issue on GitHub or contact through the w
 - Custom backend API
 
 Enjoy building your AI automation website! 🚀
+
+## Gmail Automation (optional)
+
+If you want enquiries sent as an email from `sarikashirolkar@gmail.com` to `sjshirolkar@gmail.com`:
+
+1. Open [script.new](https://script.new) while logged into `sarikashirolkar@gmail.com`.
+2. Paste `automation/google-apps-script/contact_mailer.gs` and save.
+3. Deploy as Web App:
+   - Execute as: `Me (sarikashirolkar@gmail.com)`
+   - Who has access: `Anyone`
+4. Copy the Web App URL.
+5. In `index.html`, set `data-mail-endpoint` on both forms to that URL.
+
+The website will post enquiries to this endpoint and Gmail will send the email to `sjshirolkar@gmail.com`.
+If `data-mail-endpoint` is empty, the existing Formspree flow is used.

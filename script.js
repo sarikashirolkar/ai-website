@@ -87,12 +87,21 @@ if (pricingToggle) {
 }
 
 // ===== CONTACT + QUICK MESSAGE FORM HANDLING =====
-async function submitFormWithFormspree(form, successMessage) {
+function serializeForm(form) {
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+        data[key] = typeof value === 'string' ? value.trim() : value;
+    });
+    return data;
+}
+
+async function submitForm(form, successMessage) {
+    const mailEndpoint = (form.dataset.mailEndpoint || '').trim();
     const formspreeEndpoint = form.dataset.formspree || 'https://formspree.io/f/xjkpblpj';
     const submitButton = form.querySelector('button[type="submit"]');
     const defaultButtonText = submitButton ? submitButton.textContent : '';
 
-    if (!formspreeEndpoint) {
+    if (!mailEndpoint && !formspreeEndpoint) {
         alert('Form endpoint is not configured. Please try again later.');
         return false;
     }
@@ -103,11 +112,24 @@ async function submitFormWithFormspree(form, successMessage) {
     }
 
     try {
-        const response = await fetch(formspreeEndpoint, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: new FormData(form)
-        });
+        let response;
+
+        if (mailEndpoint) {
+            response = await fetch(mailEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(serializeForm(form))
+            });
+        } else {
+            response = await fetch(formspreeEndpoint, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: new FormData(form)
+            });
+        }
 
         if (response.ok) {
             alert(successMessage);
@@ -137,7 +159,7 @@ const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        await submitFormWithFormspree(
+        await submitForm(
             contactForm,
             'Thank you for your message! We will get back to you soon.'
         );
@@ -200,7 +222,7 @@ document.addEventListener('keydown', (event) => {
 if (quickForm) {
     quickForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        const sent = await submitFormWithFormspree(
+        const sent = await submitForm(
             quickForm,
             'Thanks! Your project request has been sent. We will contact you soon.'
         );
