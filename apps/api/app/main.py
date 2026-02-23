@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
-from .schemas import ChatRequest, ChatResponse
+from .schemas import ChatRequest, ChatResponse, ContactRequest, ContactResponse
 from .services import generate_response
 
 app = FastAPI(title="AI Website API", version="0.1.0")
@@ -25,3 +25,14 @@ async def health() -> dict[str, str]:
 async def chat(payload: ChatRequest) -> ChatResponse:
     result = await generate_response(payload.message)
     return ChatResponse(output=result)
+
+
+@app.post("/api/v1/contact", response_model=ContactResponse)
+async def contact(payload: ContactRequest) -> ContactResponse:
+    if not payload.name.strip() or not payload.email.strip() or not payload.message.strip():
+        return ContactResponse(status="error", detail="Name, email, and message are required.")
+
+    return ContactResponse(
+        status="ok",
+        detail=f"Thanks {payload.name.strip()}, your request has been captured for follow-up.",
+    )

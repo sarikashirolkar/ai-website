@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "AI Workflow Automate",
-  description: "AI automation platform starter"
+  title: "AI Workflow Automate | Intelligent Business Automation",
+  description: "Modern AI workflow automation platform for sales, support, and operations."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
