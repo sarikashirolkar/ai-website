@@ -28,6 +28,8 @@
     /* accent */
     --accent:  #7c3aed;
     --accent2: #a855f7;
+    --hero-base-gradient-light: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+    --hero-base-gradient-dark: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
     --wave-violet: rgba(126, 102, 255, 0.5);
     --wave-blue: rgba(92, 188, 255, 0.45);
     --wave-cyan: rgba(126, 236, 255, 0.4);
@@ -461,10 +463,14 @@ body.motion-ready .section-reveal.is-visible {
     display: flex;
     align-items: center;
     padding: 130px 0 100px;
-    background: var(--white);
+    background: var(--hero-base-gradient-light);
     position: relative;
     overflow: hidden;
     isolation: isolate;
+}
+
+body.hero-base-dark .hero {
+    background: var(--hero-base-gradient-dark);
 }
 
 .hero-webgl-canvas {
@@ -493,7 +499,7 @@ body.motion-ready .section-reveal.is-visible {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.94));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.2));
     z-index: 1;
     pointer-events: none;
 }
