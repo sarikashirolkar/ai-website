@@ -48,13 +48,15 @@
     --shadow-hover: 0 16px 48px rgba(80,40,160,0.14);
 }
 
-/* Section-level blob palette overrides */
-.process-section   { --blob-a: #bfdbfe; --blob-b: #93c5fd; --blob-c: #ddd6fe; --blob-d: #fde8d8; --accent: #2563eb; }
-.services-section  { --blob-a: #d1fae5; --blob-b: #6ee7b7; --blob-c: #a7f3d0; --blob-d: #fef9c3; --accent: #059669; }
-.benefits-section  { --blob-a: #fce7f3; --blob-b: #f9a8d4; --blob-c: #fbcfe8; --blob-d: #fde8d8; --accent: #db2777; }
-.pricing-section   { --blob-a: #ede9fe; --blob-b: #c4b5fd; --blob-c: #ddd6fe; --blob-d: #fdf4ff; --accent: #7c3aed; }
-.contact-section   { --blob-a: #cffafe; --blob-b: #67e8f9; --blob-c: #a5f3fc; --blob-d: #e0f2fe; --accent: #0891b2; }
-.faq-section       { --blob-a: #fef3c7; --blob-b: #fcd34d; --blob-c: #fde68a; --blob-d: #fff7ed; --accent: #d97706; }
+/* Section-level blob palette + unique section backgrounds */
+.about-section     { --section-bg: linear-gradient(180deg, #eef2ff 0%, #e8edff 100%); }
+.process-section   { --blob-a: #bfdbfe; --blob-b: #93c5fd; --blob-c: #ddd6fe; --blob-d: #fde8d8; --accent: #2563eb; --section-bg: linear-gradient(180deg, #eaf3ff 0%, #e2efff 100%); }
+.services-section  { --blob-a: #d1fae5; --blob-b: #6ee7b7; --blob-c: #a7f3d0; --blob-d: #fef9c3; --accent: #059669; --section-bg: linear-gradient(180deg, #e9faf2 0%, #e4f8ee 100%); }
+.benefits-section  { --blob-a: #fce7f3; --blob-b: #f9a8d4; --blob-c: #fbcfe8; --blob-d: #fde8d8; --accent: #db2777; --section-bg: linear-gradient(180deg, #fff0f7 0%, #ffe9f3 100%); }
+.pricing-section   { --blob-a: #ede9fe; --blob-b: #c4b5fd; --blob-c: #ddd6fe; --blob-d: #fdf4ff; --accent: #7c3aed; --section-bg: linear-gradient(180deg, #f2efff 0%, #ece8ff 100%); }
+.contact-section   { --blob-a: #cffafe; --blob-b: #67e8f9; --blob-c: #a5f3fc; --blob-d: #e0f2fe; --accent: #0891b2; --section-bg: linear-gradient(180deg, #ebfbff 0%, #e2f7ff 100%); }
+.faq-section       { --blob-a: #fef3c7; --blob-b: #fcd34d; --blob-c: #fde68a; --blob-d: #fff7ed; --accent: #d97706; --section-bg: linear-gradient(180deg, #fff7e8 0%, #fff3df 100%); }
+.cta-section       { --section-bg: linear-gradient(180deg, #edf2ff 0%, #e5ecff 100%); }
 
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar { width: 5px; }
@@ -66,7 +68,7 @@ html { scroll-behavior: smooth; }
 
 body {
     font-family: var(--font-sans);
-    background: var(--white);
+    background: linear-gradient(180deg, #ebeef8 0%, #dde6f6 100%);
     color: var(--ink-700);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
@@ -296,16 +298,11 @@ section {
     padding: var(--section-pad);
     position: relative;
     overflow: hidden;
-    background: var(--white);
+    background: var(--section-bg, linear-gradient(180deg, #edf2ff 0%, #e6edff 100%));
     transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                 filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-/* Alternating section bg */
-.process-section,
-.benefits-section,
-.faq-section { background: var(--off); }
 
 /* Blend section seams so scroll transitions feel less abrupt */
 section + section::after {
@@ -318,8 +315,8 @@ section + section::after {
     pointer-events: none;
     z-index: 1;
     background:
-        radial-gradient(120% 110px at 50% 100%, rgba(188, 200, 255, 0.22) 0%, rgba(188, 200, 255, 0.1) 34%, rgba(255, 255, 255, 0) 76%),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.74) 55%, rgba(255, 255, 255, 0) 100%);
+        radial-gradient(120% 110px at 50% 100%, rgba(120, 140, 255, 0.2) 0%, rgba(120, 140, 255, 0.08) 34%, rgba(255, 255, 255, 0) 76%),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(180, 198, 255, 0.2) 55%, rgba(255, 255, 255, 0) 100%);
 }
 
 /* Section reveal states (activated from JS only) */
@@ -781,7 +778,7 @@ body.hero-base-dark .hero {
 }
 
 /* ===== ABOUT ===== */
-.about-section { background: var(--white); }
+.about-section { background: var(--section-bg); }
 
 /* ===== PROCESS ===== */
 .process-section .blob-1 {
@@ -1493,7 +1490,7 @@ input:checked + .slider::before { transform: translateX(22px); }
 
 /* ===== CTA ===== */
 .cta-section {
-    background: var(--white);
+    background: var(--section-bg);
     text-align: center;
     padding: 120px 0;
     position: relative;
