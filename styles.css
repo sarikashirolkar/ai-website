@@ -302,8 +302,7 @@ section {
     font-weight: 300;
 }
 
-/* ===== FLUID BLOB SYSTEM ===== */
-/* Each section gets large blurred radial blobs via dedicated elements */
+/* ===== FLUID BLOB SYSTEM — FULL-BLEED (matching reference images) ===== */
 .blob-wrap {
     position: absolute;
     inset: 0;
@@ -312,55 +311,63 @@ section {
     overflow: hidden;
 }
 
-/* Generic blob shape */
+/* Blob base — massive, heavily blurred, high opacity */
 .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.55;
-    animation: blobDrift 14s ease-in-out infinite;
+    animation: blobDrift 18s ease-in-out infinite;
 }
 
+/* PRIMARY blob — huge swirling mass, covers 60-70% of section */
 .blob-1 {
-    width: 560px; height: 560px;
-    background: radial-gradient(circle at 40% 40%, var(--blob-a), var(--blob-c));
-    top: -140px; right: -80px;
-    animation-duration: 16s;
-}
-
-.blob-2 {
-    width: 380px; height: 380px;
-    background: radial-gradient(circle at 60% 30%, var(--blob-b), transparent 70%);
-    top: 60px; right: 200px;
-    opacity: 0.4;
+    width: 900px; height: 800px;
+    filter: blur(90px);
+    opacity: 0.82;
+    top: -200px; right: -180px;
     animation-duration: 20s;
-    animation-delay: -5s;
+    background: radial-gradient(ellipse at 40% 45%,
+        #c4b5fd 0%,
+        #a78bfa 25%,
+        #ddd6fe 50%,
+        #f5d0fe 70%,
+        transparent 88%);
 }
 
+/* SECONDARY blob — layered on top, different shape for the swirl effect */
+.blob-2 {
+    width: 700px; height: 650px;
+    filter: blur(80px);
+    opacity: 0.65;
+    top: -80px; right: 60px;
+    animation-duration: 24s;
+    animation-delay: -7s;
+    background: radial-gradient(ellipse at 55% 40%,
+        #fde8d8 0%,
+        #f5d0fe 30%,
+        #e0e7ff 55%,
+        transparent 80%);
+}
+
+/* TERTIARY blob — accent, bottom edge fade */
 .blob-3 {
-    width: 300px; height: 300px;
-    background: radial-gradient(circle at 50% 50%, var(--blob-d), transparent 70%);
-    bottom: -60px; right: -40px;
-    opacity: 0.35;
-    animation-duration: 18s;
-    animation-delay: -8s;
+    width: 550px; height: 500px;
+    filter: blur(100px);
+    opacity: 0.5;
+    bottom: -120px; right: -60px;
+    animation-duration: 16s;
+    animation-delay: -12s;
+    background: radial-gradient(ellipse at 50% 50%,
+        #c4b5fd 0%,
+        #a78bfa 40%,
+        transparent 75%);
 }
-
-/* For sections where blob floats bottom-left */
-.blob-left .blob-1 { right: auto; left: -100px; top: auto; bottom: -80px; }
-.blob-left .blob-2 { right: auto; left: 120px;  top: auto; bottom: 80px; }
-.blob-left .blob-3 { right: auto; left: -40px;  top: 60px; bottom: auto; }
-
-/* Centre blob variant */
-.blob-center .blob-1 { right: auto; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 700px; height: 700px; opacity: 0.3; }
-.blob-center .blob-2 { right: 5%; top: 10%; }
-.blob-center .blob-3 { left: 5%; bottom: 10%; right: auto; }
 
 @keyframes blobDrift {
-    0%,100% { transform: translate(0,0) scale(1); }
-    25%      { transform: translate(30px,-20px) scale(1.04); }
-    50%      { transform: translate(-20px,30px) scale(0.97); }
-    75%      { transform: translate(15px,15px) scale(1.02); }
+    0%,100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    20%      { transform: translate(-30px, 25px) scale(1.03) rotate(2deg); }
+    40%      { transform: translate(20px, -30px) scale(0.98) rotate(-1deg); }
+    60%      { transform: translate(-15px, 20px) scale(1.04) rotate(1.5deg); }
+    80%      { transform: translate(25px, 10px) scale(0.97) rotate(-2deg); }
 }
 
 /* ===== HERO ===== */
@@ -374,30 +381,46 @@ section {
     overflow: hidden;
 }
 
-/* Hero blobs */
+/* Hero blobs — massive purple/violet swirl like reference image */
 .hero .blob-wrap { z-index: 0; }
 .hero .blob-1 {
-    width: 680px; height: 680px;
-    background: radial-gradient(circle at 35% 45%, #ddd6fe 0%, #c4b5fd 35%, #f5d0fe 60%, transparent 80%);
-    top: -150px; right: -120px;
-    opacity: 0.7;
-    animation-duration: 18s;
+    width: 1100px; height: 1000px;
+    top: -300px; right: -250px;
+    opacity: 0.88;
+    filter: blur(85px);
+    animation-duration: 22s;
+    background: radial-gradient(ellipse at 38% 42%,
+        #a78bfa 0%,
+        #8b5cf6 18%,
+        #c4b5fd 38%,
+        #ddd6fe 55%,
+        #f5d0fe 70%,
+        transparent 85%);
 }
 .hero .blob-2 {
-    width: 420px; height: 420px;
-    background: radial-gradient(circle at 50% 50%, #fde8d8 0%, #fce7f3 50%, transparent 70%);
-    top: 80px; right: 280px;
-    opacity: 0.5;
-    animation-duration: 22s;
-    animation-delay: -6s;
+    width: 750px; height: 700px;
+    top: -60px; right: 80px;
+    opacity: 0.7;
+    filter: blur(100px);
+    animation-duration: 26s;
+    animation-delay: -9s;
+    background: radial-gradient(ellipse at 55% 38%,
+        #fde8d8 0%,
+        #fce7f3 28%,
+        #ede9fe 52%,
+        transparent 78%);
 }
 .hero .blob-3 {
-    width: 280px; height: 280px;
-    background: radial-gradient(circle at 50% 50%, #e0e7ff 0%, transparent 70%);
-    bottom: 80px; right: 60px;
+    width: 600px; height: 550px;
+    bottom: -150px; right: -80px;
     opacity: 0.55;
-    animation-duration: 15s;
-    animation-delay: -10s;
+    filter: blur(110px);
+    animation-duration: 18s;
+    animation-delay: -14s;
+    background: radial-gradient(ellipse at 50% 50%,
+        #7c3aed 0%,
+        #a78bfa 35%,
+        transparent 72%);
 }
 
 .hero .container {
