@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <h2>AI Workflow Automation</h2>
-            </div>
+            <div class="nav-brand"><h2>AI Workflow Automation</h2></div>
             <ul class="nav-menu">
                 <li><a href="#about">About</a></li>
                 <li><a href="#process">Process</a></li>
@@ -26,67 +25,52 @@
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#contact" class="btn-primary">Get Started</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="hamburger"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
+    <!-- HERO — Purple/violet swirl, image 1 -->
     <section class="hero">
-        <div class="hero-blob-1"></div>
-        <div class="hero-blob-2"></div>
-        <div class="hero-blob-3"></div>
-        <div class="hero-aurora"></div>
-        <div class="hero-grid"></div>
+        <div class="blob-wrap">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
         <div class="container">
             <div class="hero-content">
                 <div class="hero-eyebrow">
                     <span class="hero-eyebrow-dot"></span>
                     <span>AI-Powered Business Automation</span>
                 </div>
-                <h1 class="hero-title">Transform Your Business with <em>Intelligent</em> Automation</h1>
+                <h1 class="hero-title">Transform Your Business<br>with <em>Intelligent</em> Automation</h1>
                 <p class="hero-subtitle">Unlock unprecedented efficiency and innovation with intelligent automation solutions designed for modern enterprises.</p>
                 <div class="hero-buttons">
                     <a href="#services" class="btn-primary btn-large">Explore Solutions</a>
                     <a href="#pricing" class="btn-secondary btn-large">View Pricing</a>
                 </div>
                 <div class="hero-stats">
-                    <div>
-                        <span class="hero-stat-num">500+</span>
-                        <span class="hero-stat-label">Workflows automated</span>
-                    </div>
-                    <div>
-                        <span class="hero-stat-num">98%</span>
-                        <span class="hero-stat-label">Client satisfaction</span>
-                    </div>
-                    <div>
-                        <span class="hero-stat-num">10×</span>
-                        <span class="hero-stat-label">Avg. productivity gain</span>
-                    </div>
+                    <div><span class="hero-stat-num">500+</span><span class="hero-stat-label">Workflows automated</span></div>
+                    <div><span class="hero-stat-num">98%</span><span class="hero-stat-label">Client satisfaction</span></div>
+                    <div><span class="hero-stat-num">10×</span><span class="hero-stat-label">Avg. productivity gain</span></div>
                 </div>
             </div>
             <div class="hero-visual">
                 <div class="animated-grid">
-                    <div class="grid-item figure-spanner" style="animation-delay: 0s;">
-                        <div class="figure-icon" aria-hidden="true"></div>
-                    </div>
-                    <div class="grid-item figure-robot" style="animation-delay: 0.7s;">
-                        <div class="figure-icon" aria-hidden="true"></div>
-                    </div>
-                    <div class="grid-item figure-workflow" style="animation-delay: 1.4s;">
-                        <div class="figure-icon" aria-hidden="true"></div>
-                    </div>
-                    <div class="grid-item figure-nodes" style="animation-delay: 2.1s;">
-                        <div class="figure-icon" aria-hidden="true"></div>
-                    </div>
+                    <div class="grid-item figure-spanner"><div class="figure-icon" aria-hidden="true"></div></div>
+                    <div class="grid-item figure-robot"><div class="figure-icon" aria-hidden="true"></div></div>
+                    <div class="grid-item figure-workflow"><div class="figure-icon" aria-hidden="true"></div></div>
+                    <div class="grid-item figure-nodes"><div class="figure-icon" aria-hidden="true"></div></div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ABOUT — Periwinkle, bottom-left -->
     <section id="about" class="about-section">
+        <div class="blob-wrap">
+            <div class="blob blob-1" style="width:900px;height:820px;top:auto;right:auto;bottom:-260px;left:-220px;opacity:0.72;filter:blur(90px);background:radial-gradient(ellipse at 45% 45%,#c4b5fd 0%,#a78bfa 22%,#ddd6fe 45%,#e0e7ff 65%,transparent 85%);"></div>
+            <div class="blob blob-2" style="width:650px;height:580px;top:auto;right:20px;bottom:-150px;opacity:0.5;filter:blur(100px);background:radial-gradient(ellipse at 55% 40%,#f5d0fe 0%,#ede9fe 40%,transparent 75%);"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Who We Are</span>
@@ -96,7 +80,13 @@
         </div>
     </section>
 
+    <!-- PROCESS — Cornflower blue, top-right (like image 2) -->
     <section id="process" class="process-section">
+        <div class="blob-wrap">
+            <div class="blob blob-1" style="width:1000px;height:900px;top:-280px;right:-240px;opacity:0.78;filter:blur(85px);background:radial-gradient(ellipse at 40% 42%,#93c5fd 0%,#60a5fa 20%,#bfdbfe 40%,#ddd6fe 60%,transparent 82%);"></div>
+            <div class="blob blob-2" style="width:680px;height:620px;top:-60px;right:120px;opacity:0.6;filter:blur(100px);background:radial-gradient(ellipse at 55% 38%,#e0e7ff 0%,#c7d2fe 35%,transparent 72%);"></div>
+            <div class="blob blob-3" style="width:500px;height:440px;top:auto;bottom:-120px;left:-80px;right:auto;opacity:0.45;filter:blur(110px);background:radial-gradient(ellipse at 50% 50%,#bfdbfe 0%,#93c5fd 40%,transparent 72%);"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Process</span>
@@ -126,7 +116,13 @@
         </div>
     </section>
 
+    <!-- SERVICES — Teal/mint, top-left -->
     <section id="services" class="services-section">
+        <div class="blob-wrap">
+            <div class="blob blob-1" style="width:980px;height:880px;top:-240px;left:-200px;right:auto;opacity:0.7;filter:blur(88px);background:radial-gradient(ellipse at 42% 44%,#6ee7b7 0%,#34d399 18%,#a7f3d0 40%,#d1fae5 62%,transparent 83%);"></div>
+            <div class="blob blob-2" style="width:660px;height:600px;top:-40px;left:160px;right:auto;opacity:0.55;filter:blur(95px);background:radial-gradient(ellipse at 52% 38%,#fef9c3 0%,#bbf7d0 38%,transparent 72%);"></div>
+            <div class="blob blob-3" style="width:520px;height:460px;top:auto;bottom:-120px;right:-80px;opacity:0.42;filter:blur(105px);background:radial-gradient(ellipse at 50% 50%,#a7f3d0 0%,#6ee7b7 42%,transparent 74%);"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Services</span>
@@ -138,67 +134,49 @@
                     <div class="service-icon">🤖</div>
                     <h3>AI Agents</h3>
                     <p>Deploy intelligent AI agents that handle complex tasks autonomously, freeing your team to focus on strategic initiatives.</p>
-                    <ul class="service-features">
-                        <li>24/7 automated operations</li>
-                        <li>Natural language processing</li>
-                        <li>Continuous learning</li>
-                    </ul>
+                    <ul class="service-features"><li>24/7 automated operations</li><li>Natural language processing</li><li>Continuous learning</li></ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">✍️</div>
                     <h3>Content Generation</h3>
                     <p>Create compelling, high-quality content at scale using advanced AI-powered writing and creative tools.</p>
-                    <ul class="service-features">
-                        <li>Multi-format content</li>
-                        <li>Brand voice consistency</li>
-                        <li>SEO optimization</li>
-                    </ul>
+                    <ul class="service-features"><li>Multi-format content</li><li>Brand voice consistency</li><li>SEO optimization</li></ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">🎯</div>
                     <h3>Lead Generation</h3>
                     <p>Build a robust sales pipeline by identifying and engaging high-quality prospects with precision targeting.</p>
-                    <ul class="service-features">
-                        <li>Smart lead scoring</li>
-                        <li>Automated outreach</li>
-                        <li>CRM integration</li>
-                    </ul>
+                    <ul class="service-features"><li>Smart lead scoring</li><li>Automated outreach</li><li>CRM integration</li></ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">📊</div>
                     <h3>Data Analytics</h3>
                     <p>Transform complex data into actionable insights that drive informed decision-making and business growth.</p>
-                    <ul class="service-features">
-                        <li>Real-time dashboards</li>
-                        <li>Predictive analytics</li>
-                        <li>Custom reporting</li>
-                    </ul>
+                    <ul class="service-features"><li>Real-time dashboards</li><li>Predictive analytics</li><li>Custom reporting</li></ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">⚡</div>
                     <h3>Workflow Automation</h3>
                     <p>Eliminate repetitive tasks and streamline processes with intelligent automation that adapts to your needs.</p>
-                    <ul class="service-features">
-                        <li>Process mapping</li>
-                        <li>Custom workflows</li>
-                        <li>System integration</li>
-                    </ul>
+                    <ul class="service-features"><li>Process mapping</li><li>Custom workflows</li><li>System integration</li></ul>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">💡</div>
                     <h3>AI Consulting</h3>
                     <p>Work with our experts to develop tailored AI strategies that transform your operations and deliver measurable results.</p>
-                    <ul class="service-features">
-                        <li>Strategic planning</li>
-                        <li>Implementation guidance</li>
-                        <li>Best practices</li>
-                    </ul>
+                    <ul class="service-features"><li>Strategic planning</li><li>Implementation guidance</li><li>Best practices</li></ul>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- BENEFITS — Rose/pink, top-right -->
     <section id="benefits" class="benefits-section">
+        <div class="blob-wrap">
+            <div class="blob blob-1" style="width:960px;height:860px;top:-230px;right:-200px;opacity:0.72;filter:blur(88px);background:radial-gradient(ellipse at 40% 42%,#f9a8d4 0%,#f472b6 18%,#fbcfe8 40%,#fce7f3 62%,transparent 83%);"></div>
+            <div class="blob blob-2" style="width:640px;height:580px;top:-50px;right:140px;opacity:0.55;filter:blur(98px);background:radial-gradient(ellipse at 55% 38%,#fde8d8 0%,#fecdd3 38%,transparent 74%);"></div>
+            <div class="blob blob-3" style="width:500px;height:440px;top:auto;bottom:-100px;left:-60px;right:auto;opacity:0.4;filter:blur(108px);background:radial-gradient(ellipse at 50% 50%,#fbcfe8 0%,#f9a8d4 42%,transparent 74%);"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Benefits</span>
@@ -206,41 +184,23 @@
                 <p>Discover the advantages of partnering with us for your automation needs.</p>
             </div>
             <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">💰</div>
-                    <h3>Cost Reduction</h3>
-                    <p>Optimize operations and streamline workflows to significantly reduce overhead while maximizing resource utilization.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
-                    <h3>Improved Outcomes</h3>
-                    <p>Leverage data-driven insights and proven strategies to enhance performance and achieve exceptional results.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">⚡</div>
-                    <h3>Increased Productivity</h3>
-                    <p>Boost team output by automating routine tasks, optimizing processes, and accelerating business operations.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🎯</div>
-                    <h3>Better Accuracy</h3>
-                    <p>Minimize human error and ensure consistent quality with AI-powered validation and quality control systems.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">📊</div>
-                    <h3>Real-Time Insights</h3>
-                    <p>Access instant analytics and reporting to make informed decisions quickly and stay ahead of the competition.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔄</div>
-                    <h3>Scalability</h3>
-                    <p>Grow your operations seamlessly with automation solutions that scale effortlessly with your business needs.</p>
-                </div>
+                <div class="benefit-card"><div class="benefit-icon">💰</div><h3>Cost Reduction</h3><p>Optimize operations and streamline workflows to significantly reduce overhead while maximizing resource utilization.</p></div>
+                <div class="benefit-card"><div class="benefit-icon">📈</div><h3>Improved Outcomes</h3><p>Leverage data-driven insights and proven strategies to enhance performance and achieve exceptional results.</p></div>
+                <div class="benefit-card"><div class="benefit-icon">⚡</div><h3>Increased Productivity</h3><p>Boost team output by automating routine tasks, optimizing processes, and accelerating business operations.</p></div>
+                <div class="benefit-card"><div class="benefit-icon">🎯</div><h3>Better Accuracy</h3><p>Minimize human error and ensure consistent quality with AI-powered validation and quality control systems.</p></div>
+                <div class="benefit-card"><div class="benefit-icon">📊</div><h3>Real-Time Insights</h3><p>Access instant analytics and reporting to make informed decisions quickly and stay ahead of the competition.</p></div>
+                <div class="benefit-card"><div class="benefit-icon">🔄</div><h3>Scalability</h3><p>Grow your operations seamlessly with automation solutions that scale effortlessly with your business needs.</p></div>
             </div>
         </div>
     </section>
 
+    <!-- PRICING — Violet/indigo, bottom-left -->
     <section id="pricing" class="pricing-section">
+        <div class="blob-wrap">
+            <div class="blob blob-1" style="width:980px;height:880px;top:auto;bottom:-260px;left:-220px;right:auto;opacity:0.75;filter:blur(90px);background:radial-gradient(ellipse at 42% 44%,#a78bfa 0%,#8b5cf6 20%,#c4b5fd 42%,#ddd6fe 62%,transparent 83%);"></div>
+            <div class="blob blob-2" style="width:680px;height:600px;top:-100px;right:-120px;opacity:0.58;filter:blur(96px);background:radial-gradient(ellipse at 50% 40%,#ede9fe 0%,#c4b5fd 38%,transparent 74%);"></div>
+            <div class="blob blob-3" style="width:520px;height:460px;top:auto;bottom:-80px;right:-80px;opacity:0.42;filter:blur(108px);background:radial-gradient(ellipse at 50% 50%,#fdf4ff 0%,#ede9fe 44%,transparent 74%);"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Plans</span>
@@ -249,81 +209,49 @@
             </div>
             <div class="pricing-toggle">
                 <span class="toggle-label">Monthly</span>
-                <label class="switch">
-                    <input type="checkbox" id="pricing-toggle">
-                    <span class="slider"></span>
-                </label>
+                <label class="switch"><input type="checkbox" id="pricing-toggle"><span class="slider"></span></label>
                 <span class="toggle-label">Annual <span class="save-badge">Save 20%</span></span>
             </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Starter</h3>
-                        <div class="price">
-                            <span class="currency">$</span>
-                            <span class="amount monthly-price">499</span>
-                            <span class="amount annual-price" style="display: none;">399</span>
-                            <span class="period">/month</span>
-                        </div>
+                        <div class="price"><span class="currency">$</span><span class="amount monthly-price">499</span><span class="amount annual-price" style="display:none;">399</span><span class="period">/month</span></div>
                         <p>Perfect for small businesses starting their automation journey.</p>
                     </div>
-                    <ul class="pricing-features">
-                        <li>Basic workflow automation</li>
-                        <li>Simple chatbot integration</li>
-                        <li>50 content requests/month</li>
-                        <li>Email support</li>
-                        <li>1 strategy session/month</li>
-                    </ul>
+                    <ul class="pricing-features"><li>Basic workflow automation</li><li>Simple chatbot integration</li><li>50 content requests/month</li><li>Email support</li><li>1 strategy session/month</li></ul>
                     <a href="#contact" class="btn-outline">Get Started</a>
                 </div>
                 <div class="pricing-card featured">
                     <div class="popular-badge">Most Popular</div>
                     <div class="pricing-header">
                         <h3>Professional</h3>
-                        <div class="price">
-                            <span class="currency">$</span>
-                            <span class="amount monthly-price">999</span>
-                            <span class="amount annual-price" style="display: none;">799</span>
-                            <span class="period">/month</span>
-                        </div>
+                        <div class="price"><span class="currency">$</span><span class="amount monthly-price">999</span><span class="amount annual-price" style="display:none;">799</span><span class="period">/month</span></div>
                         <p>Advanced features for growing businesses with complex needs.</p>
                     </div>
-                    <ul class="pricing-features">
-                        <li>Advanced workflow automation</li>
-                        <li>Custom AI chatbot</li>
-                        <li>200 content requests/month</li>
-                        <li>Priority email & chat support</li>
-                        <li>3 strategy sessions/month</li>
-                        <li>Analytics dashboard</li>
-                        <li>API access</li>
-                    </ul>
+                    <ul class="pricing-features"><li>Advanced workflow automation</li><li>Custom AI chatbot</li><li>200 content requests/month</li><li>Priority email & chat support</li><li>3 strategy sessions/month</li><li>Analytics dashboard</li><li>API access</li></ul>
                     <a href="#contact" class="btn-primary">Get Started</a>
                 </div>
                 <div class="pricing-card">
                     <div class="pricing-header">
                         <h3>Enterprise</h3>
-                        <div class="price">
-                            <span class="amount">Custom</span>
-                        </div>
+                        <div class="price"><span class="amount">Custom</span></div>
                         <p>Comprehensive solutions tailored for large-scale operations.</p>
                     </div>
-                    <ul class="pricing-features">
-                        <li>Custom workflow automation</li>
-                        <li>Enterprise AI solutions</li>
-                        <li>Unlimited content requests</li>
-                        <li>24/7 priority support</li>
-                        <li>Unlimited consultations</li>
-                        <li>Dedicated account manager</li>
-                        <li>Custom integrations</li>
-                        <li>SLA guarantee</li>
-                    </ul>
+                    <ul class="pricing-features"><li>Custom workflow automation</li><li>Enterprise AI solutions</li><li>Unlimited content requests</li><li>24/7 priority support</li><li>Unlimited consultations</li><li>Dedicated account manager</li><li>Custom integrations</li><li>SLA guarantee</li></ul>
                     <a href="#contact" class="btn-outline">Contact Sales</a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- CONTACT — Cyan/sky, top-right -->
     <section id="contact" class="contact-section">
+        <div class="blob-wrap">
+            <div class="blob blob-1" style="width:960px;height:860px;top:-240px;right:-210px;opacity:0.74;filter:blur(88px);background:radial-gradient(ellipse at 40% 43%,#67e8f9 0%,#22d3ee 18%,#a5f3fc 40%,#cffafe 62%,transparent 83%);"></div>
+            <div class="blob blob-2" style="width:650px;height:580px;top:-50px;right:150px;opacity:0.55;filter:blur(98px);background:radial-gradient(ellipse at 55% 38%,#bae6fd 0%,#7dd3fc 38%,transparent 74%);"></div>
+            <div class="blob blob-3" style="width:500px;height:440px;top:auto;bottom:-100px;left:-60px;right:auto;opacity:0.4;filter:blur(108px);background:radial-gradient(ellipse at 50% 50%,#a5f3fc 0%,#67e8f9 42%,transparent 74%);"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Contact</span>
@@ -334,40 +262,30 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <div class="contact-icon">📧</div>
-                        <div>
-                            <h4>Email</h4>
-                            <a href="mailto:hello@aiworkflowautomate.com">hello@aiworkflowautomate.com</a>
-                        </div>
+                        <div><h4>Email</h4><a href="mailto:hello@aiworkflowautomate.com">hello@aiworkflowautomate.com</a></div>
                     </div>
                     <div class="contact-item">
                         <div class="contact-icon">📍</div>
-                        <div>
-                            <h4>Location</h4>
-                            <p>Brisbane, Australia &amp; Bangalore, India</p>
-                        </div>
+                        <div><h4>Location</h4><p>Brisbane, Australia &amp; Bangalore, India</p></div>
                     </div>
                 </div>
                 <form class="contact-form" data-formspree="https://formspree.io/f/xjkpblpj" data-mail-endpoint="https://script.google.com/macros/s/AKfycbx5hqiy1jnz2mmXIQxzJm-zj-sj21WlCU9-wQZmDZfOccaeE_R_mw0zS3IEZ4nS4yRB/exec">
                     <input type="hidden" name="inquiry_source" value="Contact Form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
-                    </div>
+                    <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Your full name" required></div>
+                    <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="your@email.com" required></div>
+                    <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" rows="5" placeholder="Tell us about your project..." required></textarea></div>
                     <button type="submit" class="btn-primary">Send Message</button>
                 </form>
             </div>
         </div>
     </section>
 
+    <!-- FAQ — Amber/yellow, bottom-left -->
     <section class="faq-section">
+        <div class="blob-wrap">
+            <div class="blob blob-1" style="width:900px;height:800px;top:auto;bottom:-280px;left:-180px;right:auto;opacity:0.68;filter:blur(90px);background:radial-gradient(ellipse at 42% 44%,#fcd34d 0%,#fbbf24 20%,#fde68a 42%,#fef3c7 62%,transparent 83%);"></div>
+            <div class="blob blob-2" style="width:620px;height:560px;top:-80px;right:-120px;opacity:0.5;filter:blur(96px);background:radial-gradient(ellipse at 52% 38%,#fed7aa 0%,#fdba74 38%,transparent 74%);"></div>
+        </div>
         <div class="container">
             <div class="section-header">
                 <span class="section-label">FAQs</span>
@@ -376,54 +294,30 @@
             </div>
             <div class="faq-container">
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>What are AI automation services?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>AI automation services leverage artificial intelligence and machine learning to automate business processes, reduce manual work, and improve efficiency. This includes workflow automation, intelligent data processing, predictive analytics, and AI-powered decision making.</p>
-                    </div>
+                    <button class="faq-question"><span>What are AI automation services?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>AI automation services leverage artificial intelligence and machine learning to automate business processes, reduce manual work, and improve efficiency. This includes workflow automation, intelligent data processing, predictive analytics, and AI-powered decision making.</p></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Which processes can be automated with AI?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Almost any repetitive business process can be automated, including customer support, data entry, lead generation, content creation, report generation, email marketing, inventory management, and much more. We assess your specific needs to identify the best automation opportunities.</p>
-                    </div>
+                    <button class="faq-question"><span>Which processes can be automated with AI?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Almost any repetitive business process can be automated, including customer support, data entry, lead generation, content creation, report generation, email marketing, inventory management, and much more. We assess your specific needs to identify the best automation opportunities.</p></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>How long does implementation typically take?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Implementation timelines vary based on project complexity. Simple automation can be deployed in 2-4 weeks, while comprehensive solutions may take 2-3 months. We provide detailed timelines during the discovery phase and ensure smooth, phased rollouts.</p>
-                    </div>
+                    <button class="faq-question"><span>How long does implementation typically take?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Implementation timelines vary based on project complexity. Simple automation can be deployed in 2-4 weeks, while comprehensive solutions may take 2-3 months. We provide detailed timelines during the discovery phase and ensure smooth, phased rollouts.</p></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>Will automation disrupt current operations?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>We design implementations to minimize disruption. Our phased approach includes thorough testing, training, and gradual rollout. We work during off-peak hours when needed and provide comprehensive support to ensure smooth transitions.</p>
-                    </div>
+                    <button class="faq-question"><span>Will automation disrupt current operations?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>We design implementations to minimize disruption. Our phased approach includes thorough testing, training, and gradual rollout. We work during off-peak hours when needed and provide comprehensive support to ensure smooth transitions.</p></div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question">
-                        <span>What is the cost of AI automation?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Costs vary based on scope and complexity. We offer flexible pricing plans starting at $499/month for basic automation. Enterprise solutions are custom-priced. Most clients see ROI within 6-12 months through cost savings and productivity gains.</p>
-                    </div>
+                    <button class="faq-question"><span>What is the cost of AI automation?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer"><p>Costs vary based on scope and complexity. We offer flexible pricing plans starting at $499/month for basic automation. Enterprise solutions are custom-priced. Most clients see ROI within 6-12 months through cost savings and productivity gains.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- CTA -->
     <section class="cta-section">
         <div class="container">
             <h2>Ready to <em>Transform</em> Your Business?</h2>
@@ -433,78 +327,35 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <div class="footer-brand">
-                        <img src="assets/logo.png" alt="AI Workflow Automation logo" class="brand-logo">
-                        <h3>AI Workflow Automation</h3>
-                    </div>
+                    <div class="footer-brand"><img src="assets/logo.png" alt="AI Workflow Automation logo" class="brand-logo"><h3>AI Workflow Automation</h3></div>
                     <p>Your trusted partner in AI-driven automation, creating intelligent systems for forward-thinking businesses.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-                        <a href="#" aria-label="Twitter">Twitter</a>
-                        <a href="#" aria-label="Instagram">Instagram</a>
-                    </div>
+                    <div class="social-links"><a href="#">LinkedIn</a><a href="#">Twitter</a><a href="#">Instagram</a></div>
                 </div>
-                <div class="footer-col">
-                    <h4>Sections</h4>
-                    <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#process">Process</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#benefits">Benefits</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#services">AI Agents</a></li>
-                        <li><a href="#services">Content Generation</a></li>
-                        <li><a href="#services">Lead Generation</a></li>
-                        <li><a href="#services">Data Analytics</a></li>
-                        <li><a href="#services">AI Consulting</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:hello@aiworkflowautomate.com">hello@aiworkflowautomate.com</a></li>
-                        <li>Brisbane, Australia &amp; Bangalore, India</li>
-                    </ul>
-                </div>
+                <div class="footer-col"><h4>Sections</h4><ul><li><a href="#about">About</a></li><li><a href="#process">Process</a></li><li><a href="#services">Services</a></li><li><a href="#benefits">Benefits</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+                <div class="footer-col"><h4>Services</h4><ul><li><a href="#services">AI Agents</a></li><li><a href="#services">Content Generation</a></li><li><a href="#services">Lead Generation</a></li><li><a href="#services">Data Analytics</a></li><li><a href="#services">AI Consulting</a></li></ul></div>
+                <div class="footer-col"><h4>Contact</h4><ul><li><a href="mailto:hello@aiworkflowautomate.com">hello@aiworkflowautomate.com</a></li><li>Brisbane, Australia &amp; Bangalore, India</li></ul></div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 AI Workflow Automation. All rights reserved.</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2025 AI Workflow Automation. All rights reserved.</p></div>
         </div>
     </footer>
 
+    <!-- Quick Message Overlay -->
     <div class="quick-message-overlay" id="quick-message-overlay" aria-hidden="true">
         <div class="quick-message-panel" role="dialog" aria-modal="true" aria-labelledby="quick-message-title">
-            <button class="quick-message-close" id="quick-message-close" aria-label="Close message panel">×</button>
+            <button class="quick-message-close" id="quick-message-close" aria-label="Close">×</button>
             <h3 id="quick-message-title">Tell Us About Your Project</h3>
             <p>Share your idea and our team will get back to you quickly.</p>
             <form class="quick-message-form" id="quick-message-form" data-formspree="https://formspree.io/f/xjkpblpj" data-mail-endpoint="https://script.google.com/macros/s/AKfycbx5hqiy1jnz2mmXIQxzJm-zj-sj21WlCU9-wQZmDZfOccaeE_R_mw0zS3IEZ4nS4yRB/exec">
                 <input type="hidden" name="inquiry_source" value="Process Card Panel">
-                <div class="form-group">
-                    <label for="quick-name">Name</label>
-                    <input type="text" id="quick-name" name="name" placeholder="Your name" required>
-                </div>
-                <div class="form-group">
-                    <label for="quick-email">Email</label>
-                    <input type="email" id="quick-email" name="email" placeholder="your@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label for="quick-project">Selected Area</label>
-                    <input type="text" id="quick-project" name="project_focus" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="quick-message">Message</label>
-                    <textarea id="quick-message" name="message" rows="4" placeholder="Tell us more..."></textarea>
-                </div>
+                <div class="form-group"><label for="quick-name">Name</label><input type="text" id="quick-name" name="name" placeholder="Your name" required></div>
+                <div class="form-group"><label for="quick-email">Email</label><input type="email" id="quick-email" name="email" placeholder="your@email.com" required></div>
+                <div class="form-group"><label for="quick-project">Selected Area</label><input type="text" id="quick-project" name="project_focus" readonly></div>
+                <div class="form-group"><label for="quick-message">Message</label><textarea id="quick-message" name="message" rows="4" placeholder="Tell us more..."></textarea></div>
                 <button type="submit" class="btn-primary">Send Request</button>
             </form>
         </div>
