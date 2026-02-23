@@ -356,7 +356,7 @@ applyHeroTheme(heroThemeIndex);
 setInterval(() => {
     heroThemeIndex = (heroThemeIndex + 1) % heroThemeClasses.length;
     applyHeroTheme(heroThemeIndex);
-}, 2000);
+}, 5000);
 
 // ===== PERFORMANCE OPTIMIZATION =====
 // Debounce function for scroll events
