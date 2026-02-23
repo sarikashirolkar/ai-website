@@ -515,8 +515,6 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
-    initHeroWebGLBackground();
-
     const animatedElements = document.querySelectorAll(
         '.process-card, .service-card, .benefit-card, .pricing-card, .faq-item'
     );
@@ -639,22 +637,7 @@ function initThemeSwitch() {
 // Initialize theme switch if toggle exists
 initThemeSwitch();
 
-// ===== HERO COLOR CYCLING =====
-const heroThemeClasses = ['theme-purple-pink', 'theme-pink-blue', 'theme-green-yellow'];
-let heroThemeIndex = 0;
-
-function applyHeroTheme(index) {
-    document.body.classList.remove(...heroThemeClasses);
-    document.body.classList.add(heroThemeClasses[index]);
-}
-
-applyHeroTheme(heroThemeIndex);
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    setInterval(() => {
-        heroThemeIndex = (heroThemeIndex + 1) % heroThemeClasses.length;
-        applyHeroTheme(heroThemeIndex);
-    }, 9000);
-}
+// Hero color cycling disabled to keep a consistent branded mesh palette.
 
 // ===== PERFORMANCE OPTIMIZATION =====
 // Debounce function for scroll events
