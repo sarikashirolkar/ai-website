@@ -1621,6 +1621,70 @@ input:checked + .slider:before {
     }
 }
 
+/* ===== QUICK MESSAGE PANEL ===== */
+.process-card[role="button"] {
+    cursor: pointer;
+}
+
+.process-card[role="button"]:focus-visible {
+    outline: 3px solid rgba(78, 205, 196, 0.45);
+    outline-offset: 3px;
+}
+
+.quick-message-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(26, 26, 46, 0.68);
+    backdrop-filter: blur(4px);
+    z-index: 1200;
+}
+
+.quick-message-overlay.active {
+    display: flex;
+}
+
+.quick-message-panel {
+    width: min(560px, 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    background: #fff;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    animation: fadeInUp 0.3s ease;
+}
+
+.quick-message-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    border: none;
+    background: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.quick-message-panel h3 {
+    margin-bottom: 0.4rem;
+    font-size: 1.6rem;
+    color: var(--text-dark);
+}
+
+.quick-message-panel p {
+    margin-bottom: 1.2rem;
+    color: var(--text-light);
+}
+
+.quick-message-form {
+    display: grid;
+    gap: 1rem;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 992px) {
     .hero .container {
@@ -1709,5 +1773,9 @@ input:checked + .slider:before {
     .service-card,
     .benefit-card {
         padding: 1.5rem;
+    }
+
+    .quick-message-panel {
+        padding: 1.4rem;
     }
 }

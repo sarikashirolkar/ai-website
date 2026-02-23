@@ -85,19 +85,19 @@
                 <p>A streamlined, proven approach to deliver transformative results.</p>
             </div>
             <div class="process-grid">
-                <div class="process-card">
+                <div class="process-card" role="button" tabindex="0" data-inquiry-topic="Discovery & Strategy">
                     <div class="process-number">01</div>
                     <div class="process-icon">🔍</div>
                     <h3>Discovery & Strategy</h3>
                     <p>We begin by understanding your unique challenges, exploring opportunities, and crafting a comprehensive roadmap for success.</p>
                 </div>
-                <div class="process-card">
+                <div class="process-card" role="button" tabindex="0" data-inquiry-topic="Development & Testing">
                     <div class="process-number">02</div>
                     <div class="process-icon">⚙️</div>
                     <h3>Development & Testing</h3>
                     <p>Our team builds custom solutions aligned with your objectives and conducts rigorous testing to ensure exceptional quality.</p>
                 </div>
-                <div class="process-card">
+                <div class="process-card" role="button" tabindex="0" data-inquiry-topic="Launch & Support">
                     <div class="process-number">03</div>
                     <div class="process-icon">🚀</div>
                     <h3>Launch & Support</h3>
@@ -333,6 +333,7 @@
                     </div>
                 </div>
                 <form class="contact-form" data-formspree="https://formspree.io/f/xjkpblpj">
+                    <input type="hidden" name="inquiry_source" value="Contact Form">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
@@ -468,6 +469,34 @@
             </div>
         </div>
     </footer>
+
+    <div class="quick-message-overlay" id="quick-message-overlay" aria-hidden="true">
+        <div class="quick-message-panel" role="dialog" aria-modal="true" aria-labelledby="quick-message-title">
+            <button class="quick-message-close" id="quick-message-close" aria-label="Close message panel">×</button>
+            <h3 id="quick-message-title">Tell Us About Your Project</h3>
+            <p>Share your idea and our team will get back to you quickly.</p>
+            <form class="quick-message-form" id="quick-message-form" data-formspree="https://formspree.io/f/xjkpblpj">
+                <input type="hidden" name="inquiry_source" value="Process Card Panel">
+                <div class="form-group">
+                    <label for="quick-name">Name</label>
+                    <input type="text" id="quick-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="quick-email">Email</label>
+                    <input type="email" id="quick-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="quick-project">Selected Area</label>
+                    <input type="text" id="quick-project" name="project_focus" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="quick-message">Project Details</label>
+                    <textarea id="quick-message" name="message" rows="5" placeholder="Tell us what you want us to build..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

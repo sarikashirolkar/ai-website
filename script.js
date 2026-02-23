@@ -86,51 +86,126 @@ if (pricingToggle) {
     });
 }
 
-// ===== CONTACT FORM HANDLING =====
-const contactForm = document.querySelector('.contact-form');
+// ===== CONTACT + QUICK MESSAGE FORM HANDLING =====
+async function submitFormWithFormspree(form, successMessage) {
+    const formspreeEndpoint = form.dataset.formspree || 'https://formspree.io/f/xjkpblpj';
+    const submitButton = form.querySelector('button[type="submit"]');
+    const defaultButtonText = submitButton ? submitButton.textContent : '';
 
+    if (!formspreeEndpoint) {
+        alert('Form endpoint is not configured. Please try again later.');
+        return false;
+    }
+
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+    }
+
+    try {
+        const response = await fetch(formspreeEndpoint, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+        });
+
+        if (response.ok) {
+            alert(successMessage);
+            form.reset();
+            return true;
+        }
+
+        const data = await response.json().catch(() => null);
+        const errorMessage = data && data.errors
+            ? data.errors.map(err => err.message).join(', ')
+            : 'Something went wrong. Please try again.';
+        alert(errorMessage);
+        return false;
+    } catch (error) {
+        console.error('Form submission failed:', error);
+        alert('Network error. Please try again in a moment.');
+        return false;
+    } finally {
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = defaultButtonText;
+        }
+    }
+}
+
+const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
-    const formspreeEndpoint = contactForm.dataset.formspree || 'https://formspree.io/f/xjkpblpj';
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        if (!formspreeEndpoint) {
-            alert('Form endpoint is not configured. Please try again later.');
-            return;
+        await submitFormWithFormspree(
+            contactForm,
+            'Thank you for your message! We will get back to you soon.'
+        );
+    });
+}
+
+// ===== PROCESS CARD QUICK MESSAGE PANEL =====
+const quickOverlay = document.getElementById('quick-message-overlay');
+const quickForm = document.getElementById('quick-message-form');
+const quickClose = document.getElementById('quick-message-close');
+const quickProjectInput = document.getElementById('quick-project');
+const quickMessageInput = document.getElementById('quick-message');
+const processCards = document.querySelectorAll('.process-card[data-inquiry-topic]');
+
+function openQuickPanel(topic) {
+    if (!quickOverlay || !quickProjectInput) return;
+    quickProjectInput.value = topic || 'General Inquiry';
+    if (quickMessageInput) {
+        quickMessageInput.value = `Hi team, I want to discuss a project for: ${topic || 'General Inquiry'}.`;
+    }
+    quickOverlay.classList.add('active');
+    quickOverlay.setAttribute('aria-hidden', 'false');
+}
+
+function closeQuickPanel() {
+    if (!quickOverlay) return;
+    quickOverlay.classList.remove('active');
+    quickOverlay.setAttribute('aria-hidden', 'true');
+}
+
+processCards.forEach((card) => {
+    const topic = card.dataset.inquiryTopic || card.querySelector('h3')?.textContent || 'General Inquiry';
+    card.addEventListener('click', () => openQuickPanel(topic));
+    card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openQuickPanel(topic);
         }
-        
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
+    });
+});
+
+if (quickClose) {
+    quickClose.addEventListener('click', closeQuickPanel);
+}
+
+if (quickOverlay) {
+    quickOverlay.addEventListener('click', (event) => {
+        if (event.target === quickOverlay) {
+            closeQuickPanel();
         }
-        
-        try {
-            const response = await fetch(formspreeEndpoint, {
-                method: 'POST',
-                headers: { 'Accept': 'application/json' },
-                body: new FormData(contactForm)
-            });
-            
-            if (response.ok) {
-                alert('Thank you for your message! We will get back to you soon.');
-                contactForm.reset();
-            } else {
-                const data = await response.json().catch(() => null);
-                const errorMessage = data && data.errors
-                    ? data.errors.map(err => err.message).join(', ')
-                    : 'Something went wrong. Please try again.';
-                alert(errorMessage);
-            }
-        } catch (error) {
-            console.error('Form submission failed:', error);
-            alert('Network error. Please try again in a moment.');
-        } finally {
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Send Message';
-            }
+    });
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        closeQuickPanel();
+    }
+});
+
+if (quickForm) {
+    quickForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const sent = await submitFormWithFormspree(
+            quickForm,
+            'Thanks! Your project request has been sent. We will contact you soon.'
+        );
+        if (sent) {
+            closeQuickPanel();
         }
     });
 }
