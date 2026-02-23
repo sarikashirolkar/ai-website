@@ -250,6 +250,97 @@ if (quickForm) {
     });
 }
 
+// ===== SECTION-BY-SECTION SCROLL SNAP =====
+function initSectionBySectionScroll() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchPrimary = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReducedMotion || isTouchPrimary) return;
+
+    const sections = Array.from(document.querySelectorAll('section'));
+    if (sections.length < 2) return;
+
+    let lock = false;
+    let wheelAccumulator = 0;
+    let lockTimer = 0;
+    const WHEEL_THRESHOLD = 30;
+
+    function getNavOffset() {
+        const nav = document.querySelector('.navbar');
+        return nav ? nav.offsetHeight + 16 : 84;
+    }
+
+    function getClosestSectionIndex() {
+        const currentY = window.scrollY + getNavOffset() + 4;
+        let index = 0;
+        let minDistance = Number.POSITIVE_INFINITY;
+
+        sections.forEach((section, i) => {
+            const distance = Math.abs(section.offsetTop - currentY);
+            if (distance < minDistance) {
+                minDistance = distance;
+                index = i;
+            }
+        });
+
+        return index;
+    }
+
+    function scrollToSection(index) {
+        const safeIndex = Math.max(0, Math.min(index, sections.length - 1));
+        const targetY = Math.max(0, sections[safeIndex].offsetTop - getNavOffset());
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+
+    function releaseLock(delay = 520) {
+        window.clearTimeout(lockTimer);
+        lockTimer = window.setTimeout(() => {
+            lock = false;
+        }, delay);
+    }
+
+    window.addEventListener(
+        'wheel',
+        (event) => {
+            if (event.ctrlKey) return;
+            if (event.target.closest('textarea, input, select, [contenteditable=\"true\"], .quick-message-panel')) {
+                return;
+            }
+
+            if (lock) {
+                event.preventDefault();
+                return;
+            }
+
+            wheelAccumulator += event.deltaY;
+
+            if (Math.abs(wheelAccumulator) < WHEEL_THRESHOLD) {
+                return;
+            }
+
+            const direction = wheelAccumulator > 0 ? 1 : -1;
+            wheelAccumulator = 0;
+
+            const currentIndex = getClosestSectionIndex();
+            const nextIndex = currentIndex + direction;
+
+            if (nextIndex < 0 || nextIndex >= sections.length) {
+                return;
+            }
+
+            event.preventDefault();
+
+            lock = true;
+            scrollToSection(nextIndex);
+            releaseLock();
+        },
+        { passive: false }
+    );
+
+    window.addEventListener('scroll', debounce(() => {
+        wheelAccumulator = 0;
+    }, 80));
+}
+
 // ===== WEBGL HERO MESH BACKGROUND =====
 function initHeroWebGLBackground() {
     const hero = document.querySelector('.hero');
@@ -516,6 +607,7 @@ const observer = new IntersectionObserver((entries) => {
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
     initHeroWebGLBackground();
+    initSectionBySectionScroll();
 
     const animatedElements = document.querySelectorAll(
         '.process-card, .service-card, .benefit-card, .pricing-card, .faq-item'
