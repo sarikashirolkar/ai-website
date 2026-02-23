@@ -28,6 +28,12 @@
     /* accent */
     --accent:  #7c3aed;
     --accent2: #a855f7;
+    --wave-violet: rgba(126, 102, 255, 0.5);
+    --wave-blue: rgba(92, 188, 255, 0.45);
+    --wave-cyan: rgba(126, 236, 255, 0.4);
+    --wave-mint: rgba(126, 234, 176, 0.38);
+    --wave-fuchsia: rgba(241, 152, 255, 0.34);
+    --wave-amber: rgba(255, 210, 129, 0.32);
 
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-sans:    'Outfit', sans-serif;
@@ -81,21 +87,24 @@ body::after {
 body::before {
     top: 6vh;
     height: 45vh;
-    opacity: 0.24;
+    opacity: 0.28;
     background:
-        radial-gradient(75% 85% at 24% 38%, rgba(126, 102, 255, 0.42) 0%, rgba(126, 102, 255, 0.16) 38%, rgba(255, 255, 255, 0) 72%),
-        radial-gradient(65% 70% at 72% 28%, rgba(92, 188, 255, 0.35) 0%, rgba(92, 188, 255, 0.12) 42%, rgba(255, 255, 255, 0) 76%);
-    animation: siteWaveDriftA 24s ease-in-out infinite;
+        radial-gradient(74% 84% at 16% 34%, var(--wave-violet) 0%, rgba(126, 102, 255, 0.18) 38%, rgba(255, 255, 255, 0) 72%),
+        radial-gradient(68% 72% at 64% 24%, var(--wave-blue) 0%, rgba(92, 188, 255, 0.18) 40%, rgba(255, 255, 255, 0) 76%),
+        radial-gradient(55% 68% at 48% 48%, var(--wave-fuchsia) 0%, rgba(241, 152, 255, 0.1) 42%, rgba(255, 255, 255, 0) 78%);
+    animation: siteWaveDriftA 26s ease-in-out infinite;
 }
 
 body::after {
     top: 42vh;
     height: 52vh;
-    opacity: 0.18;
+    opacity: 0.24;
     background:
-        radial-gradient(68% 74% at 62% 40%, rgba(170, 146, 255, 0.34) 0%, rgba(170, 146, 255, 0.12) 40%, rgba(255, 255, 255, 0) 74%),
-        radial-gradient(80% 72% at 24% 68%, rgba(124, 214, 255, 0.28) 0%, rgba(124, 214, 255, 0.1) 40%, rgba(255, 255, 255, 0) 76%);
-    animation: siteWaveDriftB 32s ease-in-out infinite;
+        radial-gradient(66% 74% at 64% 38%, rgba(170, 146, 255, 0.4) 0%, rgba(170, 146, 255, 0.16) 40%, rgba(255, 255, 255, 0) 76%),
+        radial-gradient(82% 74% at 22% 70%, var(--wave-cyan) 0%, rgba(124, 214, 255, 0.12) 42%, rgba(255, 255, 255, 0) 78%),
+        radial-gradient(64% 68% at 80% 64%, var(--wave-mint) 0%, rgba(126, 234, 176, 0.1) 42%, rgba(255, 255, 255, 0) 80%),
+        radial-gradient(54% 56% at 44% 82%, var(--wave-amber) 0%, rgba(255, 210, 129, 0.08) 42%, rgba(255, 255, 255, 0) 80%);
+    animation: siteWaveDriftB 34s ease-in-out infinite;
 }
 
 @keyframes siteWaveDriftA {
@@ -899,6 +908,13 @@ body.motion-ready .section-reveal.is-visible {
     gap: 1.5rem;
     position: relative;
     z-index: 2;
+}
+
+.services-break {
+    grid-column: 1 / -1;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
 }
 
 .service-card {

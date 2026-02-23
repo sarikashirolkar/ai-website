@@ -250,6 +250,100 @@ if (quickForm) {
     });
 }
 
+// ===== GUIDED PAGE SCROLL (SOFT SNAP) =====
+function initGuidedPageScroll() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchPrimary = window.matchMedia('(pointer: coarse)').matches;
+    if (prefersReducedMotion || isTouchPrimary) return;
+
+    const waypointSelectors = [
+        '.hero',
+        '#about',
+        '#process',
+        '#services',
+        '#services-more',
+        '#benefits',
+        '#pricing',
+        '#contact',
+        '#faq',
+        '#cta',
+        '#footer'
+    ];
+
+    const waypoints = waypointSelectors
+        .map((selector) => document.querySelector(selector))
+        .filter(Boolean);
+
+    if (waypoints.length < 2) return;
+
+    let wheelAccumulator = 0;
+    let lock = false;
+    const WHEEL_THRESHOLD = 130;
+    const LOCK_MS = 760;
+
+    function getNavOffset() {
+        const nav = document.querySelector('.navbar');
+        return nav ? nav.offsetHeight + 14 : 84;
+    }
+
+    function getWaypointTop(index) {
+        const clamped = Math.max(0, Math.min(index, waypoints.length - 1));
+        const top = waypoints[clamped].getBoundingClientRect().top + window.scrollY - getNavOffset();
+        return Math.max(0, Math.round(top));
+    }
+
+    function getCurrentIndex() {
+        const current = window.scrollY + getNavOffset() + 6;
+        let idx = 0;
+        let distance = Number.POSITIVE_INFINITY;
+        waypoints.forEach((el, i) => {
+            const d = Math.abs((el.getBoundingClientRect().top + window.scrollY) - current);
+            if (d < distance) {
+                distance = d;
+                idx = i;
+            }
+        });
+        return idx;
+    }
+
+    function scrollToWaypoint(index) {
+        const y = getWaypointTop(index);
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        lock = true;
+        window.setTimeout(() => {
+            lock = false;
+        }, LOCK_MS);
+    }
+
+    window.addEventListener(
+        'wheel',
+        (event) => {
+            if (event.ctrlKey || lock) {
+                if (lock) event.preventDefault();
+                return;
+            }
+
+            if (event.target.closest('textarea, input, select, [contenteditable="true"], .quick-message-panel')) {
+                return;
+            }
+
+            wheelAccumulator += event.deltaY;
+            if (Math.abs(wheelAccumulator) < WHEEL_THRESHOLD) return;
+
+            const direction = wheelAccumulator > 0 ? 1 : -1;
+            wheelAccumulator = 0;
+
+            const currentIndex = getCurrentIndex();
+            const nextIndex = currentIndex + direction;
+            if (nextIndex < 0 || nextIndex >= waypoints.length) return;
+
+            event.preventDefault();
+            scrollToWaypoint(nextIndex);
+        },
+        { passive: false }
+    );
+}
+
 // ===== WEBGL HERO MESH BACKGROUND =====
 function initHeroWebGLBackground() {
     const hero = document.querySelector('.hero');
@@ -515,6 +609,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
+    initGuidedPageScroll();
     initHeroWebGLBackground();
 
     const animatedElements = document.querySelectorAll(
