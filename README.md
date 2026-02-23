@@ -1,99 +1,182 @@
-# AI Website (Cloudflare + FastAPI)
+# AutomateFlow AI Website
 
-Production-ready starter for an AI workflow product using:
-- Next.js + Tailwind + shadcn-style UI
-- FastAPI + LangChain-ready orchestration layer
-- Redis caching
-- Docker-based local dev
-- Cloudflare-first frontend deployment guidance
+A modern, responsive website for an AI automation company, built with pure HTML, CSS, and JavaScript. This project is inspired by modern SaaS landing pages and features smooth animations, interactive elements, and a clean design.
 
-## Monorepo layout
+## 🌟 Features
 
-- `apps/web`: Next.js app (frontend)
-- `apps/api`: FastAPI app (AI backend)
-- `infra/docker-compose.yml`: local orchestration
+- **Fully Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
+- **Modern UI/UX** - Clean, professional design with smooth animations
+- **Interactive Elements** - FAQ accordion, pricing toggle, mobile navigation
+- **Smooth Scrolling** - Seamless navigation between sections
+- **Contact Form** - Live submissions via Formspree (customizable endpoint)
+- **GitHub Pages Ready** - Easy deployment to GitHub Pages
 
-## 1) Local setup
+## 📋 Sections
 
-### Prerequisites
-- Node 20+
-- Python 3.11+
-- Docker (optional but recommended)
+- **Hero Section** - Eye-catching introduction with call-to-action buttons
+- **About Section** - Company overview and mission
+- **Process Section** - Three-step workflow explanation
+- **Services Section** - Six key service offerings with detailed descriptions
+- **Benefits Section** - Six major benefits of using the service
+- **Pricing Section** - Three pricing tiers with monthly/annual toggle
+- **Contact Section** - Contact information and form
+- **FAQ Section** - Expandable frequently asked questions
+- **Footer** - Links and additional information
 
-### Option A: Docker (fastest)
+## 🚀 Deployment to GitHub Pages
 
-```bash
-cd infra
-docker compose up --build
-```
+Follow these steps to deploy your website to GitHub Pages:
 
-- Frontend: `http://localhost:3000`
-- API docs: `http://localhost:8000/docs`
-- Redis: `localhost:6379`
-
-### Option B: Run separately
+### Step 1: Initialize Git Repository
 
 ```bash
-# Web
-cd apps/web
-npm install
-npm run dev
-
-# API
-cd apps/api
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-uvicorn app.main:app --reload --port 8000
-```
-
-## 2) Required env vars
-
-### `apps/api/.env`
-
-```env
-REDIS_URL=redis://localhost:6379/0
-ALLOWED_ORIGINS=http://localhost:3000
-```
-
-The API runs in local workflow mode by default and does not require an LLM key.
-
-### `apps/web/.env.local`
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-```
-
-## 3) Deploy without Vercel (Cloudflare)
-
-### Frontend on Cloudflare
-Use Cloudflare Workers/Pages with OpenNext for Next.js SSR support.
-
-High-level:
-1. Connect repo to Cloudflare.
-2. Build command (from repo root): `cd apps/web && npm install && npm run build`
-3. Set `NEXT_PUBLIC_API_URL` to your production API URL.
-4. Deploy.
-
-### Backend (FastAPI)
-Cloudflare Pages does not natively host long-running Python ASGI apps. Use one of:
-1. Docker host (VM), place behind Cloudflare proxy.
-2. Cloudflare Tunnel to your FastAPI host.
-3. Cloudflare Containers (if enabled for your account).
-
-## 4) Roadmap to your full stack
-
-- Supabase pgvector for long-term memory.
-- Pinecone for high-scale semantic retrieval.
-- Redis for short-term cache and rate limiting.
-- LangGraph for multi-step agent flows.
-- Add Anthropic/Hugging Face/Replicate providers in backend provider layer.
-
-## 5) GitHub push
-
-```bash
+cd /Users/alokeshirolkar/Documents/websiteautomateproject
+git init
 git add .
-git commit -m "feat: scaffold ai website monorepo"
+git commit -m "Initial commit: AutomateFlow AI website"
+```
+
+### Step 2: Create GitHub Repository
+
+1. Go to [GitHub](https://github.com) and log in
+2. Click the "+" icon in the top right and select "New repository"
+3. Name your repository (e.g., `automateflow-website`)
+4. **Do NOT** initialize with README, .gitignore, or license (we already have these)
+5. Click "Create repository"
+
+### Step 3: Push to GitHub
+
+```bash
+# Replace YOUR_USERNAME and YOUR_REPOSITORY with your actual values
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+git branch -M main
 git push -u origin main
 ```
+
+### Step 4: Enable GitHub Pages
+
+1. Go to your repository on GitHub
+2. Click on "Settings" tab
+3. Scroll down to "Pages" in the left sidebar
+4. Under "Source", select "main" branch
+5. Click "Save"
+6. Wait a few minutes for the deployment
+
+Your site will be live at: `https://YOUR_USERNAME.github.io/YOUR_REPOSITORY/`
+
+## 🛠️ Customization
+
+### Update Content
+
+Edit `index.html` to customize:
+- Company name and branding
+- Service descriptions
+- Pricing plans
+- Contact information
+- FAQ questions and answers
+
+### Modify Styling
+
+Edit `styles.css` to change:
+- Color scheme (modify CSS variables in `:root`)
+- Fonts (update Google Fonts link in HTML)
+- Spacing and layout
+- Animations
+
+### Enhance Functionality
+
+Edit `script.js` to:
+- Add form submission logic
+- Integrate analytics
+- Add more interactive features
+
+## ✉️ Form Submissions
+
+The contact form at the bottom of `index.html` is already wired to Formspree (`https://formspree.io/f/xjkpblpj`). To point it to your own Formspree form:
+
+1. Create a form in your Formspree dashboard and copy its endpoint URL.
+2. Update the `data-formspree` attribute on the `<form>` element in `index.html` with your endpoint.
+3. (Optional) Adjust the fallback endpoint in `script.js` if you want to keep the value outside of the markup.
+4. Deploy the site and submit a quick test entry to confirm it appears in Formspree.
+
+If the endpoint is missing or returns an error, the script will show a friendly alert so users know to try again.
+
+## 🎨 Color Scheme
+
+The website uses a modern purple/blue gradient palette:
+
+- Primary: `#6366f1` (Indigo)
+- Secondary: `#8b5cf6` (Purple)
+- Accent: `#06b6d4` (Cyan)
+
+You can easily change these by modifying the CSS variables in `styles.css`.
+
+## 📱 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## 📄 File Structure
+
+```
+websiteautomateproject/
+├── index.html          # Main HTML file
+├── styles.css          # All styling
+├── script.js           # Interactive functionality
+├── .gitignore         # Git ignore rules
+└── README.md          # This file
+```
+
+## 🔧 Local Development
+
+To run locally, simply open `index.html` in your web browser. No build process or server required!
+
+For a better development experience, you can use a local server:
+
+```bash
+# Using Python 3
+python3 -m http.server 8000
+
+# Using Node.js (if you have npm installed)
+npx serve
+```
+
+Then visit `http://localhost:8000` in your browser.
+
+## ✨ Future Enhancements
+
+Potential features to add:
+- Blog section
+- Case studies/testimonials
+- Image gallery
+- Video backgrounds
+- Newsletter signup
+- Multi-language support
+- Dark mode toggle
+- Real backend integration for contact form
+
+## 📝 License
+
+This project is open source and available for personal and commercial use.
+
+## 🤝 Contributing
+
+Feel free to fork this project and customize it for your needs!
+
+## 📧 Support
+
+For questions or issues, please open an issue on GitHub or contact through the website form.
+
+---
+
+**Note**: This is a static website template. To make the contact form functional, you'll need to integrate it with a backend service or use a form handling service like:
+- Formspree
+- Netlify Forms
+- Google Forms
+- EmailJS
+- Custom backend API
+
+Enjoy building your AI automation website! 🚀
