@@ -343,6 +343,21 @@ function initThemeSwitch() {
 // Initialize theme switch if toggle exists
 initThemeSwitch();
 
+// ===== HERO COLOR CYCLING =====
+const heroThemeClasses = ['theme-purple-pink', 'theme-pink-blue', 'theme-green-yellow'];
+let heroThemeIndex = 0;
+
+function applyHeroTheme(index) {
+    document.body.classList.remove(...heroThemeClasses);
+    document.body.classList.add(heroThemeClasses[index]);
+}
+
+applyHeroTheme(heroThemeIndex);
+setInterval(() => {
+    heroThemeIndex = (heroThemeIndex + 1) % heroThemeClasses.length;
+    applyHeroTheme(heroThemeIndex);
+}, 2000);
+
 // ===== PERFORMANCE OPTIMIZATION =====
 // Debounce function for scroll events
 function debounce(func, wait = 10) {

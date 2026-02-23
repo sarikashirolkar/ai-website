@@ -32,6 +32,39 @@
                       radial-gradient(at 80% 20%, hsla(280,90%,65%,0.4) 0px, transparent 50%),
                       radial-gradient(at 40% 80%, hsla(200,90%,65%,0.4) 0px, transparent 50%),
                       radial-gradient(at 0% 50%, hsla(60,90%,65%,0.3) 0px, transparent 50%);
+    --hero-main-bg: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+    --hero-orb-bg: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+    --hero-title-gradient: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 50%, #4ECDC4 100%);
+}
+
+body.theme-purple-pink {
+    --hero-main-bg: linear-gradient(135deg, #1A1A2E 0%, #3c2062 52%, #7a2d6e 100%);
+    --gradient-mesh: radial-gradient(at 20% 30%, hsla(328,94%,65%,0.42) 0px, transparent 50%),
+                     radial-gradient(at 80% 20%, hsla(272,84%,63%,0.4) 0px, transparent 50%),
+                     radial-gradient(at 40% 80%, hsla(229,79%,58%,0.35) 0px, transparent 50%),
+                     radial-gradient(at 0% 50%, hsla(310,88%,70%,0.28) 0px, transparent 50%);
+    --hero-orb-bg: radial-gradient(circle, rgba(255, 120, 190, 0.16) 0%, transparent 70%);
+    --hero-title-gradient: linear-gradient(135deg, #ff8bc5 0%, #fca5f1 50%, #c4b5fd 100%);
+}
+
+body.theme-pink-blue {
+    --hero-main-bg: linear-gradient(135deg, #2c1353 0%, #314a9e 52%, #0ea5e9 100%);
+    --gradient-mesh: radial-gradient(at 20% 30%, hsla(332,95%,70%,0.38) 0px, transparent 50%),
+                     radial-gradient(at 80% 20%, hsla(210,95%,60%,0.36) 0px, transparent 50%),
+                     radial-gradient(at 40% 80%, hsla(193,96%,59%,0.32) 0px, transparent 50%),
+                     radial-gradient(at 0% 50%, hsla(256,88%,70%,0.22) 0px, transparent 50%);
+    --hero-orb-bg: radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, transparent 72%);
+    --hero-title-gradient: linear-gradient(135deg, #f472b6 0%, #60a5fa 50%, #22d3ee 100%);
+}
+
+body.theme-green-yellow {
+    --hero-main-bg: linear-gradient(135deg, #19362f 0%, #1f6a4f 52%, #2d7c53 100%);
+    --gradient-mesh: radial-gradient(at 20% 30%, hsla(142,76%,57%,0.38) 0px, transparent 50%),
+                     radial-gradient(at 80% 20%, hsla(166,75%,47%,0.36) 0px, transparent 50%),
+                     radial-gradient(at 40% 80%, hsla(70,88%,65%,0.32) 0px, transparent 50%),
+                     radial-gradient(at 0% 50%, hsla(50,96%,63%,0.24) 0px, transparent 50%);
+    --hero-orb-bg: radial-gradient(circle, rgba(234, 179, 8, 0.18) 0%, transparent 72%);
+    --hero-title-gradient: linear-gradient(135deg, #4ade80 0%, #facc15 52%, #a3e635 100%);
 }
 
 html {
@@ -290,9 +323,10 @@ body {
     display: flex;
     align-items: center;
     padding: 120px 0 80px;
-    background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+    background: var(--hero-main-bg);
     position: relative;
     overflow: hidden;
+    transition: background 1s ease;
 }
 
 .hero::before {
@@ -305,6 +339,7 @@ body {
     background: var(--gradient-mesh);
     opacity: 1;
     animation: meshMove 15s ease-in-out infinite;
+    transition: background 1s ease;
 }
 
 .hero::after {
@@ -314,8 +349,9 @@ body {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255, 107, 107, 0.1) 0%, transparent 70%);
+    background: var(--hero-orb-bg);
     animation: rotate 30s linear infinite;
+    transition: background 1s ease;
 }
 
 @keyframes meshMove {
@@ -357,7 +393,7 @@ body {
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 50%, #4ECDC4 100%);
+    background: var(--hero-title-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
