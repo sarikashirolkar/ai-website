@@ -195,3 +195,7 @@ If you want enquiries sent as an email from `sarikashirolkar@gmail.com` to `sjsh
 
 The website will post enquiries to this endpoint and Gmail will send the email to `sjshirolkar@gmail.com`.
 If `data-mail-endpoint` is empty, the existing Formspree flow is used.
+
+Notes:
+- After changing Apps Script code, redeploy the Web App (or create a new deployment version).
+- For Google Apps Script URLs, the site submits with a browser-safe mode to avoid CORS errors.

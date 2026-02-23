@@ -113,25 +113,43 @@ async function submitForm(form, successMessage) {
 
     try {
         let response;
+        let sent = false;
 
         if (mailEndpoint) {
-            response = await fetch(mailEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(serializeForm(form))
-            });
+            const isGoogleAppsScript =
+                mailEndpoint.includes('script.google.com') ||
+                mailEndpoint.includes('script.googleusercontent.com');
+
+            if (isGoogleAppsScript) {
+                // Apps Script web apps generally don't return CORS headers for fetch/XHR.
+                // Use no-cors with FormData to avoid browser CORS failures.
+                await fetch(mailEndpoint, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: new FormData(form)
+                });
+                sent = true;
+            } else {
+                response = await fetch(mailEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(serializeForm(form))
+                });
+                sent = response.ok;
+            }
         } else {
             response = await fetch(formspreeEndpoint, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json' },
                 body: new FormData(form)
             });
+            sent = response.ok;
         }
 
-        if (response.ok) {
+        if (sent) {
             alert(successMessage);
             form.reset();
             return true;
