@@ -1,18 +1,13 @@
-from openai import AsyncOpenAI
-
-from .config import settings
-
-
-client = AsyncOpenAI(api_key=settings.openai_api_key)
-
-
 async def generate_response(prompt: str) -> str:
-    if not settings.openai_api_key:
-        return "Set OPENAI_API_KEY to enable model responses."
+    cleaned = prompt.strip()
+    if not cleaned:
+        return "Please enter a message to run the workflow."
 
-    response = await client.responses.create(
-        model=settings.openai_model,
-        input=prompt,
-        temperature=0.3,
+    return (
+        "Workflow completed (local mode).\n"
+        f"Input: {cleaned}\n\n"
+        "Next actions:\n"
+        "1. Define your agent goal.\n"
+        "2. Add your data source or memory store.\n"
+        "3. Enable an LLM provider when you're ready."
     )
-    return response.output_text

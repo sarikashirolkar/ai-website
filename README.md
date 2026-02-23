@@ -53,11 +53,11 @@ uvicorn app.main:app --reload --port 8000
 ### `apps/api/.env`
 
 ```env
-OPENAI_API_KEY=your_openai_key
-OPENAI_MODEL=gpt-4o-mini
 REDIS_URL=redis://localhost:6379/0
 ALLOWED_ORIGINS=http://localhost:3000
 ```
+
+The API runs in local workflow mode by default and does not require an LLM key.
 
 ### `apps/web/.env.local`
 
