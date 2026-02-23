@@ -290,6 +290,8 @@ body::after {
 /* ===== SECTION SHARED STYLES ===== */
 section {
     padding: var(--section-pad);
+    width: 100%;
+    min-height: 100svh;
     position: relative;
     overflow: hidden;
     background: var(--white);
@@ -298,6 +300,38 @@ section {
     transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
                 filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Full-page navigation dots */
+.section-nav-dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1200;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section-nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(42, 42, 56, 0.35);
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.section-nav-dot:hover {
+    transform: scale(1.18);
+}
+
+.section-nav-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.24);
 }
 
 /* Alternating section bg */
@@ -1824,6 +1858,8 @@ body.theme-green-yellow .hero .blob-1 {
     .blob-1 { width: 360px !important; height: 360px !important; }
     .blob-2 { display: none; }
     .blob-3 { width: 220px !important; height: 220px !important; }
+
+    .section-nav-dots { display: none; }
 }
 
 @media (max-width: 480px) {

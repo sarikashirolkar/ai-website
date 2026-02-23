@@ -261,8 +261,32 @@ function initSectionBySectionScroll() {
 
     let lock = false;
     let wheelAccumulator = 0;
-    let lockTimer = 0;
-    const WHEEL_THRESHOLD = 30;
+    const WHEEL_THRESHOLD = 110;
+    const ANIMATION_DURATION_MS = 620;
+    let lockUntil = 0;
+
+    const dotsNav = document.createElement('nav');
+    dotsNav.className = 'section-nav-dots';
+    dotsNav.setAttribute('aria-label', 'Section navigation');
+
+    const dotButtons = sections.map((section, index) => {
+        if (!section.id) {
+            section.id = `section-${index + 1}`;
+        }
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'section-nav-dot';
+        dot.setAttribute('aria-label', `Go to section ${index + 1}`);
+        dot.addEventListener('click', () => {
+            if (lock) return;
+            lock = true;
+            smoothScrollToSection(index);
+        });
+        dotsNav.appendChild(dot);
+        return dot;
+    });
+
+    document.body.appendChild(dotsNav);
 
     function getNavOffset() {
         const nav = document.querySelector('.navbar');
@@ -285,17 +309,47 @@ function initSectionBySectionScroll() {
         return index;
     }
 
-    function scrollToSection(index) {
+    function getSectionTop(index) {
         const safeIndex = Math.max(0, Math.min(index, sections.length - 1));
-        const targetY = Math.max(0, sections[safeIndex].offsetTop - getNavOffset());
-        window.scrollTo({ top: targetY, behavior: 'smooth' });
+        return Math.max(0, sections[safeIndex].offsetTop - getNavOffset());
     }
 
-    function releaseLock(delay = 520) {
-        window.clearTimeout(lockTimer);
-        lockTimer = window.setTimeout(() => {
-            lock = false;
-        }, delay);
+    function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function smoothScrollToY(targetY, duration = ANIMATION_DURATION_MS) {
+        const startY = window.scrollY;
+        const distance = targetY - startY;
+        const startTime = performance.now();
+
+        function step(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(1, elapsed / duration);
+            const eased = easeInOutCubic(progress);
+            window.scrollTo(0, startY + distance * eased);
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                lock = false;
+            }
+        }
+
+        requestAnimationFrame(step);
+    }
+
+    function smoothScrollToSection(index) {
+        const targetY = getSectionTop(index);
+        lockUntil = performance.now() + ANIMATION_DURATION_MS;
+        smoothScrollToY(targetY);
+    }
+
+    function updateActiveDot() {
+        const active = getClosestSectionIndex();
+        dotButtons.forEach((dot, i) => {
+            dot.classList.toggle('active', i === active);
+        });
     }
 
     window.addEventListener(
@@ -306,7 +360,8 @@ function initSectionBySectionScroll() {
                 return;
             }
 
-            if (lock) {
+            const now = performance.now();
+            if (lock || now < lockUntil) {
                 event.preventDefault();
                 return;
             }
@@ -330,15 +385,22 @@ function initSectionBySectionScroll() {
             event.preventDefault();
 
             lock = true;
-            scrollToSection(nextIndex);
-            releaseLock();
+            smoothScrollToSection(nextIndex);
         },
         { passive: false }
     );
 
     window.addEventListener('scroll', debounce(() => {
         wheelAccumulator = 0;
+        updateActiveDot();
     }, 80));
+
+    const sectionObserver = new IntersectionObserver(
+        () => updateActiveDot(),
+        { threshold: 0.55 }
+    );
+    sections.forEach((section) => sectionObserver.observe(section));
+    updateActiveDot();
 }
 
 // ===== WEBGL HERO MESH BACKGROUND =====
