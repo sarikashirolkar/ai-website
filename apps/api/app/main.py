@@ -1,0 +1,27 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from .config import settings
+from .schemas import ChatRequest, ChatResponse
+from .services import generate_response
+
+app = FastAPI(title="AI Website API", version="0.1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[origin.strip() for origin in settings.allowed_origins.split(",") if origin.strip()],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/health")
+async def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+@app.post("/api/v1/chat", response_model=ChatResponse)
+async def chat(payload: ChatRequest) -> ChatResponse:
+    result = await generate_response(payload.message)
+    return ChatResponse(output=result)
