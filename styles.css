@@ -241,12 +241,42 @@ section {
     position: relative;
     overflow: hidden;
     background: var(--white);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Alternating section bg */
 .process-section,
 .benefits-section,
 .faq-section { background: var(--off); }
+
+/* Blend section seams so scroll transitions feel less abrupt */
+section + section::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -72px;
+    height: 120px;
+    pointer-events: none;
+    z-index: 1;
+    background:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.78) 58%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Section reveal states (activated from JS only) */
+body.motion-ready .section-reveal {
+    opacity: 0.001;
+    transform: translateY(34px);
+    filter: saturate(0.95);
+}
+
+body.motion-ready .section-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: saturate(1);
+}
 
 .section-header {
     text-align: center;
@@ -379,48 +409,109 @@ section {
     background: var(--white);
     position: relative;
     overflow: hidden;
+    isolation: isolate;
 }
 
-/* Hero blobs — massive purple/violet swirl like reference image */
-.hero .blob-wrap { z-index: 0; }
-.hero .blob-1 {
-    width: 1100px; height: 1000px;
-    top: -300px; right: -250px;
+/* Hero background — abstract wave + retro gradient mesh */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(40% 28% at 82% 10%, rgba(88, 74, 242, 0.26) 0%, rgba(132, 120, 255, 0.2) 34%, rgba(255, 255, 255, 0) 76%),
+        radial-gradient(36% 28% at 74% 42%, rgba(106, 190, 255, 0.2) 0%, rgba(178, 216, 255, 0.15) 42%, rgba(255, 255, 255, 0) 80%),
+        radial-gradient(34% 24% at 42% 74%, rgba(182, 168, 255, 0.16) 0%, rgba(232, 224, 255, 0.13) 40%, rgba(255, 255, 255, 0) 82%),
+        radial-gradient(circle at 16% 16%, rgba(255, 255, 255, 0.9) 0%, transparent 50%),
+        radial-gradient(circle at 84% 84%, rgba(255, 255, 255, 0.85) 0%, transparent 46%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 25% 30%, rgba(120, 110, 255, 0.07) 0%, transparent 52%),
+        radial-gradient(circle at 68% 42%, rgba(95, 195, 255, 0.06) 0%, transparent 48%),
+        linear-gradient(115deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    mix-blend-mode: screen;
     opacity: 0.88;
-    filter: blur(85px);
-    animation-duration: 22s;
-    background: radial-gradient(ellipse at 38% 42%,
-        #a78bfa 0%,
-        #8b5cf6 18%,
-        #c4b5fd 38%,
-        #ddd6fe 55%,
-        #f5d0fe 70%,
-        transparent 85%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero .blob-wrap { z-index: 0; }
+.hero .blob {
+    mix-blend-mode: normal;
+}
+
+.hero .blob-1 {
+    width: 1520px;
+    height: 440px;
+    top: -105px;
+    right: -340px;
+    opacity: 0.5;
+    filter: blur(68px);
+    border-radius: 66% 34% 52% 48% / 52% 48% 52% 48%;
+    transform: rotate(-11deg);
+    animation: heroRibbonA 26s ease-in-out infinite;
+    background: radial-gradient(130% 92% at 46% 50%,
+        rgba(93, 78, 250, 0.8) 0%,
+        rgba(120, 111, 255, 0.6) 24%,
+        rgba(153, 158, 255, 0.45) 42%,
+        rgba(182, 212, 255, 0.34) 58%,
+        rgba(235, 245, 255, 0.2) 72%,
+        rgba(255, 255, 255, 0) 88%);
 }
 .hero .blob-2 {
-    width: 750px; height: 700px;
-    top: -60px; right: 80px;
-    opacity: 0.7;
-    filter: blur(100px);
-    animation-duration: 26s;
-    animation-delay: -9s;
-    background: radial-gradient(ellipse at 55% 38%,
-        #fde8d8 0%,
-        #fce7f3 28%,
-        #ede9fe 52%,
-        transparent 78%);
+    width: 1120px;
+    height: 760px;
+    top: 120px;
+    right: -150px;
+    opacity: 0.42;
+    filter: blur(94px);
+    border-radius: 44% 56% 38% 62% / 58% 42% 60% 40%;
+    transform: rotate(16deg);
+    animation: heroRibbonB 30s ease-in-out infinite;
+    animation-delay: -7s;
+    background: radial-gradient(100% 96% at 56% 46%,
+        rgba(103, 175, 255, 0.52) 0%,
+        rgba(136, 212, 255, 0.38) 34%,
+        rgba(184, 232, 255, 0.3) 56%,
+        rgba(255, 255, 255, 0) 84%);
 }
 .hero .blob-3 {
-    width: 600px; height: 550px;
-    bottom: -150px; right: -80px;
-    opacity: 0.55;
-    filter: blur(110px);
-    animation-duration: 18s;
-    animation-delay: -14s;
-    background: radial-gradient(ellipse at 50% 50%,
-        #7c3aed 0%,
-        #a78bfa 35%,
-        transparent 72%);
+    width: 860px;
+    height: 500px;
+    bottom: -150px;
+    left: 18%;
+    opacity: 0.34;
+    filter: blur(104px);
+    border-radius: 56% 44% 66% 34% / 40% 60% 40% 60%;
+    transform: rotate(-16deg);
+    animation: heroRibbonC 28s ease-in-out infinite;
+    animation-delay: -12s;
+    background: radial-gradient(125% 94% at 44% 44%,
+        rgba(145, 136, 255, 0.45) 0%,
+        rgba(191, 206, 255, 0.32) 36%,
+        rgba(233, 243, 255, 0.22) 62%,
+        rgba(255, 255, 255, 0) 88%);
+}
+
+@keyframes heroRibbonA {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(-11deg) scale(1); }
+    50% { transform: translate3d(-24px, 18px, 0) rotate(-8deg) scale(1.03); }
+}
+
+@keyframes heroRibbonB {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(16deg) scale(1); }
+    50% { transform: translate3d(28px, -16px, 0) rotate(12deg) scale(0.98); }
+}
+
+@keyframes heroRibbonC {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(-16deg) scale(1); }
+    50% { transform: translate3d(-14px, -22px, 0) rotate(-11deg) scale(1.03); }
 }
 
 .hero .container {
@@ -1580,9 +1671,17 @@ input:checked + .slider::before { transform: translateX(22px); }
 }
 
 /* ===== THEME COMPAT (JS kept, visual unified to light) ===== */
-body.theme-purple-pink .hero .blob-1 { background: radial-gradient(circle at 35% 45%, #f5d0fe 0%, #ddd6fe 40%, #fde8d8 65%, transparent 80%); }
-body.theme-pink-blue   .hero .blob-1 { background: radial-gradient(circle at 35% 45%, #bfdbfe 0%, #ddd6fe 40%, #fce7f3 65%, transparent 80%); }
-body.theme-green-yellow .hero .blob-1 { background: radial-gradient(circle at 35% 45%, #d1fae5 0%, #fef9c3 40%, #fde8d8 65%, transparent 80%); }
+body.theme-purple-pink .hero .blob-1 {
+    background: radial-gradient(120% 95% at 50% 50%, rgba(116, 98, 245, 0.82) 0%, rgba(170, 143, 255, 0.64) 30%, rgba(236, 217, 255, 0.3) 72%, rgba(255,255,255,0) 88%);
+}
+
+body.theme-pink-blue .hero .blob-1 {
+    background: radial-gradient(120% 95% at 50% 50%, rgba(89, 168, 255, 0.8) 0%, rgba(133, 205, 255, 0.62) 32%, rgba(190, 236, 255, 0.34) 70%, rgba(255,255,255,0) 88%);
+}
+
+body.theme-green-yellow .hero .blob-1 {
+    background: radial-gradient(120% 95% at 50% 50%, rgba(110, 189, 168, 0.72) 0%, rgba(173, 227, 186, 0.55) 34%, rgba(244, 238, 178, 0.34) 68%, rgba(255,255,255,0) 88%);
+}
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeInUp {
@@ -1636,8 +1735,9 @@ body.theme-green-yellow .hero .blob-1 { background: radial-gradient(circle at 35
     .hero-buttons a { width: 100%; text-align: center; max-width: 300px; }
     .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
 
-    .hero .blob-1 { width: 400px; height: 400px; top: -60px; right: -80px; }
-    .hero .blob-2 { display: none; }
+    .hero .blob-1 { width: 680px; height: 320px; top: -80px; right: -200px; filter: blur(64px); opacity: 0.58; }
+    .hero .blob-2 { width: 560px; height: 360px; top: 210px; right: -190px; filter: blur(72px); opacity: 0.46; }
+    .hero .blob-3 { width: 400px; height: 280px; bottom: -80px; left: 10%; filter: blur(70px); opacity: 0.3; }
 
     .section-header h2 { font-size: 1.9rem; }
     .pricing-card.featured { transform: scale(1); }
@@ -1655,6 +1755,21 @@ body.theme-green-yellow .hero .blob-1 { background: radial-gradient(circle at 35
     .section-header h2 { font-size: 1.7rem; }
     .process-card, .service-card, .benefit-card { padding: 1.8rem; }
     .quick-message-panel { padding: 1.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    section,
+    body.motion-ready .section-reveal,
+    body.motion-ready .section-reveal.is-visible {
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+    }
+
+    .hero .blob {
+        animation: none !important;
+    }
 }
 
 /* Process card focus */

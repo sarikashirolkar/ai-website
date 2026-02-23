@@ -277,6 +277,34 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+        document.body.classList.add('motion-ready');
+        const sections = document.querySelectorAll(
+            'section:not(.hero):not(.cta-section), .cta-section'
+        );
+
+        const sectionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        sectionObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.14,
+                rootMargin: '0px 0px -8% 0px'
+            }
+        );
+
+        sections.forEach((section) => {
+            section.classList.add('section-reveal');
+            sectionObserver.observe(section);
+        });
+    }
 });
 
 // ===== COUNTER ANIMATION (for benefits or stats) =====
@@ -371,10 +399,12 @@ function applyHeroTheme(index) {
 }
 
 applyHeroTheme(heroThemeIndex);
-setInterval(() => {
-    heroThemeIndex = (heroThemeIndex + 1) % heroThemeClasses.length;
-    applyHeroTheme(heroThemeIndex);
-}, 5000);
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => {
+        heroThemeIndex = (heroThemeIndex + 1) % heroThemeClasses.length;
+        applyHeroTheme(heroThemeIndex);
+    }, 9000);
+}
 
 // ===== PERFORMANCE OPTIMIZATION =====
 // Debounce function for scroll events
